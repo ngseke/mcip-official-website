@@ -7,6 +7,7 @@ const mcip = new Vue({
   },
   mounted () {
     this.setShrink()
+    console.log(`Hey! You found me ☺️! `)
   },
   methods: {
     setShrink () {
@@ -14,7 +15,6 @@ const mcip = new Vue({
         const top = document.documentElement.scrollTop
         this.isNavShrink = top > 200
         this.isLineAppScreenshotShrink = top < 100
-        console.log(top)
       })
     },
   }

@@ -12,12 +12,13 @@ body
   font-family: $font-family
 
 section
+  background-color: white
   +py(4rem)
   &.secondary
     background-color: #f8f9fa
   &.line-app
     img.screenshot
-      transition: all .7s 
+      transition: all .7s
       max-width: 15rem
       width: 100%
       height: auto
@@ -38,13 +39,23 @@ h3
   justify-content: space-around
   .item
     +flex-center
+    transition: transform .5s
     list-style: none
     margin-bottom: 2rem
+    &:hover
+      text-decoration: none
+      transform: scale(1.05)
+      img
+        box-shadow: $big-btn-shadow
+    &:active
+      transform: scale(.98)
+      color: red
     img
       height: 9rem
       width: auto
       margin-bottom: .75rem
       border-radius: 15px
+      transition: box-shadow .7s
     h4
       color: #333
       font-size: 1.2rem
