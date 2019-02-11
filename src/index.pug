@@ -25,20 +25,20 @@ html(lang='zh-Hant-TW')
           .col-4
             img.img-fluid(src='https://www.jkos.com/image/client/kv-08.png')
             
-      section.line-app
+      section#line-app.line-app
         .container
           .row.justify-content-around
             .col-12.col-md-4.col-lg-3.order-2.order-md-1.text-center
-              img.screenshot(src='img/screenshot/line-app-mockup.png')
+              img.screenshot(src='img/screenshot/line-app-mockup.png' alt='Line App 畫面截圖' :class='{ shrink: isLineAppScreenshotShrink }')
 
             .col-12.col-md-8.col-lg-6.order-1.order-md-2
               .align-center-article
-                h3 三分鐘完成報名，#[br]速速加入樂台計畫！
+                h3 三分鐘完成報名，#[br]現在加入樂台計畫！
                 .mb-5.text-center.text-md-left
                   img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg')
                   a.gradient-btn.line(target='_blank' href='https://line.me/R/ti/p/11FZvoRuwx') 加入 Line 官方帳號
             
-      section.secondary
+      section#partner.secondary
         .container
           .row
             .col-12
