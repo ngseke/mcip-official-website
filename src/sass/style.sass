@@ -11,19 +11,34 @@
 body
   font-family: $font-family
 
+a
+  &:hover
+    text-decoration: none
+
 section
   background-color: white
   +py(4rem)
   &.secondary
     background-color: #f8f9fa
   &.line-app
-    img.screenshot
-      transition: all .7s
-      max-width: 15rem
-      width: 100%
-      height: auto
-      &.shrink
-        transform: scale(.9)
+    .screenshot-area
+      position: relative
+      text-align: center
+      img.screenshot
+        transition: all .7s
+        max-width: 15rem
+        width: 100%
+        height: auto
+        &.shrink
+          transform: scale(.9)
+      img.avatar
+        +wh(7rem)
+        display: inline-block
+        border-radius: 100%
+        position: absolute
+        bottom: 0
+        right: -3rem
+        box-shadow: $big-btn-shadow
 
 h3
   font-size: 2.8rem

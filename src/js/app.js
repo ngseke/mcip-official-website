@@ -1,7 +1,6 @@
 const mcip = new Vue({
   el: `#app`,
   data: {
-    msg: `hello`,
     isNavShrink: false,
     isLineAppScreenshotShrink: false,
   },

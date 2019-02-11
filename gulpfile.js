@@ -8,6 +8,7 @@ const livereload = require('gulp-livereload')
 const autoprefixer = require('autoprefixer')
 const postcss = require('gulp-postcss')
 const babel = require('gulp-babel')
+const del = require('del')
 
 gulp.task('pug', () => {
   return gulp.src('src/**/*.pug')
@@ -38,6 +39,12 @@ gulp.task('img', () => {
     .pipe(gulp.dest('public/img/'))
 })
 
+gulp.task('clear', () => {
+  return del([
+    'public/**/*',
+  ])
+})
+
 gulp.task('watch', () => {
   gulp.watch('src/js/*.js').on('all', gulp.series('js'))
   gulp.watch('src/**/*.pug').on('all', gulp.series('pug'))
@@ -45,7 +52,8 @@ gulp.task('watch', () => {
   gulp.watch('src/img/**/*.*').on('all', gulp.series('img'))
 })
 
-gulp.task('default', gulp.series(gulp.series('js', 'css', 'pug', 'img'), 'watch'))
+
+gulp.task('default', gulp.series(gulp.series('clear', 'js', 'css', 'pug', 'img'), 'watch'))
 
 const swallowError = (error) => {
   console.error(error.toString())

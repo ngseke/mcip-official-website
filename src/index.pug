@@ -1,21 +1,21 @@
 doctype html
 html(lang='zh-Hant-TW')
   head
+    include pug/include/data.pug
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible' content='IE=edge')
     meta(name='viewport' content='width=device-width,initial-scale=1.0')
     meta(property='og:image' content='img/favicon.png')
     meta(property='og:title' content='樂台計畫 : 大專院校民謠音樂比賽平台')
-    meta(property='og:description' content='立刻加入樂台計畫 Line App，輕鬆快速報各個大專院校音樂比賽，亦可關注即時賽況、查看第一手賽事資訊與參加抽獎活動，精彩資訊不漏接！')
     meta(property='og:type' content='website')
-    include pug/include/style.pug
-    meta(name='description' content='立刻加入樂台計畫 Line App，輕鬆快速報各個大專院校音樂比賽，亦可關注即時賽況、查看第一手賽事資訊與參加抽獎活動，精彩資訊不漏接！')
+    meta(property='og:description' content=description)
+    meta(name='description' content=description)
+    meta(name='author' content='Huang Xingqiao')
     title 樂台計畫 : 大專院校民謠音樂比賽平台
+    include pug/include/style.pug
   body
     #app
       include pug/include/nav.pug
-      include pug/include/data.pug
-      
       header
         .logo.horizontal
           .box #[.a] #[.b]
@@ -23,39 +23,35 @@ html(lang='zh-Hant-TW')
             each _, i in `樂台計畫`
               span(style=`animation-delay: ${i * .08 + .65}s`)=_
         h2 大專院校民謠音樂比賽平台
-          
-      //- section.container
-        .row
-          .col-4
-            img.img-fluid(src='https://www.jkos.com/image/client/kv-08.png')
-            
+        
       section#line-app.line-app
         .container
           .row.justify-content-around
-            .col-12.col-md-4.col-lg-3.order-2.order-md-1.text-center
-              img.screenshot(src='img/screenshot/line-app-mockup.png' alt='Line App 畫面截圖' :class='{ shrink: isLineAppScreenshotShrink }')
-
+            .col-12.col-md-3.col-lg-3.order-2.order-md-1
+              .screenshot-area
+                img.screenshot(src='img/screenshot/line-app-mockup.png' alt='Line App 畫面截圖' :class='{ shrink: isLineAppScreenshotShrink }')
+                //- img.avatar.d-none.d-md-inline-block(src='img/line-avatar.png')
+              
             .col-12.col-md-8.col-lg-6.order-1.order-md-2
               .align-center-article
                 h3 三分鐘完成報名，#[br]現在加入樂台計畫！
                 .mb-5.text-center.text-md-left
-                  img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg')
+                  img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg' alt='樂台計畫 Line App QRCode')
                   a.gradient-btn.line(target='_blank' href='https://line.me/R/ti/p/11FZvoRuwx') 加入 Line 官方帳號
             
       section#partner.secondary
         .container
-          .row
+          .row.justify-content-center
             .col-12
               h3 合作夥伴
-            .col-12
+            .col-12.col-lg-10
               .row.partners
                 each _ in partners
-                  .col-6.col-md-3.col-lg-4.col-xl-2
+                  .col-6.col-md-3.col-lg-4
                     a.item(href=_.link target='_blank')
                       img(src=_.img)
                       h4=_.name
-      //- video#video-background(autoplay loop muted plays-inline)
-      //-   source(src='https://player.vimeo.com/external/158148793.hd.mp4?s=8e8741dbee251d5c35a759718d4b0976fbf38b6f&profile_id=119&oauth2_token_id=57447761'  type='video/mp4')
+
 
     include pug/include/footer.pug
     include pug/include/script.pug
