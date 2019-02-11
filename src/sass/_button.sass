@@ -1,0 +1,18 @@
+@import "variables"
+@import "functions"
+
+.gradient-btn
+  +btn-common
+  border-radius: 1000px
+  background-image: $btn-gradient
+  color: white
+  padding: .6rem 1.5rem
+  font-weight: bold
+  letter-spacing: 1px
+  text-decoration: none
+  text-align: center
+  &.secondary
+    background-image: $btn-secondary-gradient
+  &.block
+    display: block
+    width: 100%

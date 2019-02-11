@@ -4,8 +4,30 @@ html(lang='zh-Hant-TW')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible' content='IE=edge')
     meta(name='viewport' content='width=device-width,initial-scale=1.0')
-    link(href='img/logo.png' rel='icon' type='image/png')
-    meta(name='description' content='樂台計畫')
+    include pug/include/style.pug
+    meta(name='description' content='大專院校民謠音樂比賽平台')
     title 樂台計畫
   body
     #app
+      include pug/include/nav.pug
+      
+      header
+        .logo.horizontal
+          .box #[.a]#[.b]
+          h1
+            each _, i in `樂台計畫`
+              span(style=`animation-delay: ${i * .08 + .65}s`)=_
+        h2 大專院校民謠音樂比賽平台
+          
+      section.container
+        .row
+          .col-4
+            img.img-fluid(src='https://www.jkos.com/image/client/kv-08.png')
+              
+      section.container.secondary
+        .row
+          .col-12
+            h3 合作夥伴
+          .col-4
+        
+    include pug/include/script.pug

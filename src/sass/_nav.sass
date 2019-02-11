@@ -1,0 +1,35 @@
+@import "variables"
+@import "functions"
+
+$shrink-bg-color: rgba(#1e1e1e, 1)
+
+#nav
+  +py(1.5rem)
+  background-color: rgba(white, 0)
+  transition: all .3s
+  .navbar-brand
+    transition: all .2s
+    opacity: 0
+    transform: translateY(.5rem)
+    img
+      +wh(2rem)
+      margin-right: .75rem
+    span
+      font-weight: 400
+  &.shrink
+    background-color: $shrink-bg-color
+    backdrop-filter: blur(20px)
+    .navbar-brand
+      opacity: 1
+      transform: none
+
+
+@media (max-width: 575.98px)
+  #nav
+    background-color: $shrink-bg-color
+    +py(1rem)
+    &.shrink
+      background-color: $shrink-bg-color
+    .navbar-nav
+      padding-top: 1rem
+      +px(.5rem)

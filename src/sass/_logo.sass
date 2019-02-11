@@ -1,0 +1,74 @@
+@import "variables"
+@import "functions"
+
+@keyframes bounceInUp
+  from, 60%, 75%, 90%, to
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1)
+  from
+    opacity: 0
+    transform: translate3d(0, 3000px, 0)
+  60%
+    opacity: 1
+    transform: translate3d(0, -20px, 0)
+  75%
+    transform: translate3d(0, 10px, 0)
+  90%
+    transform: translate3d(0, -5px, 0)
+  to
+    transform: translate3d(0, 0, 0)
+
+@keyframes zoomIn
+  from
+    opacity: 0
+    transform: scale(.75)
+  to
+    transform: scale(1)
+
+.logo
+  width: 100%
+  height: auto
+  display: flex
+  align-items: center
+  justify-content: center
+  flex-direction: column
+  padding: 1rem 0
+  overflow: hidden
+  color: white
+  h1
+    font-size: 20px
+    font-weight: normal
+    margin-top: 1rem
+    white-space: nowrap
+    span
+      display: inline-block
+      animation: zoomIn .3s 0s cubic-bezier(0.215, 0.61, 0.355, 1)
+      animation-fill-mode: backwards
+
+  &.horizontal
+    flex-direction: row
+    h1
+      margin-left: 1.25rem
+      margin-top: 0
+
+  .box
+    width: 50px
+    height: 50px
+    position: relative
+    .a, .b
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      animation: bounceInUp 1s 0s
+      animation-fill-mode: backwards
+      background: url('../img/logo/logo-white-a.svg')
+      background-size: contain
+    .b
+      animation-delay: .2s
+      background: url('../img/logo/logo-white-b.svg')
+    &.light
+      .a
+        background: url('../img/logo/logo-black-a.svg')
+      .b
+        background: url('../img/logo/logo-black-b.svg')

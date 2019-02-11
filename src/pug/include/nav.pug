@@ -1,0 +1,11 @@
+nav#nav.navbar.navbar-expand-sm.navbar-dark.fixed-top(:class='{ shrink: isNavShrink }')
+  .container
+    a.navbar-brand(href='index.html') 
+      img(src='img/logo/logo-white.svg' alt='MCIP Logo White')
+      span 樂台計畫
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      ul.navbar-nav.ml-auto
+        li.nav-item
+          a.nav-link(href='https://manage.mcip.ml/') 社團管理

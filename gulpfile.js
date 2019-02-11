@@ -18,11 +18,10 @@ gulp.task('pug', () => {
 
 gulp.task('js', () => {
 	return gulp.src('src/js/*.js')
-    .pipe(babel({ presets: ['env']}))
+    .pipe(babel({ presets: ['@babel/preset-env'] }))
 		.pipe(uglify())
 		.pipe(gulp.dest('public/js'))
 })
-
 
 gulp.task('css', () => {
   const processors = [autoprefixer({browsers: ['last 5 version']})]
@@ -35,19 +34,15 @@ gulp.task('css', () => {
 })
 
 gulp.task('img', () => {
-  return gulp.src('src/**/*.png')
-    .pipe(gulp.dest('public/'))
-  gulp.src('src/**/*.jpg')
-    .pipe(gulp.dest('public/'))
-  gulp.src('src/**/*.svg')
-    .pipe(gulp.dest('public/'))
+  return gulp.src('src/img/**/*.*')
+    .pipe(gulp.dest('public/img/'))
 })
 
 gulp.task('watch', () => {
   gulp.watch('src/js/*.js').on('all', gulp.series('js'))
   gulp.watch('src/**/*.pug').on('all', gulp.series('pug'))
   gulp.watch('src/sass/*.sass').on('all', gulp.series('css'))
-  gulp.watch('src/img/*.*').on('all', gulp.series('img'))
+  gulp.watch('src/img/**/*.*').on('all', gulp.series('img'))
 })
 
 gulp.task('default', gulp.series(gulp.series('js', 'css', 'pug', 'img'), 'watch'))

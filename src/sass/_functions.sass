@@ -1,0 +1,57 @@
+@mixin flex-center
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+
+@mixin mx($n)
+  margin-left: $n
+  margin-right: $n
+
+@mixin my($n)
+  margin-top: $n
+  margin-bottom: $n
+
+@mixin px($n)
+  padding-left: $n
+  padding-right: $n
+
+@mixin py($n)
+  padding-top: $n
+  padding-bottom: $n
+
+@mixin wh($n)
+  width: $n
+  height: $n
+
+@mixin gradient-text($bg-img)
+  background-clip: text
+  color: transparent
+  background-image: $bg-img
+
+@mixin btn-common
+  box-shadow: $big-btn-shadow
+  border: 0
+  transition: $transition
+  &:not(.disabled)
+    &:hover
+      box-shadow: $big-btn-hover-shadow
+  		cursor: pointer
+    &:active
+      transform: scale(.95)
+  &:focus
+    outline: none
+  &.disabled
+    opacity: .5
+    cursor: no-drop
+
+@mixin input-common
+  border: 1px solid rgba(#aaa, .3)
+  background-color: white
+  color: $color2
+  transition: $transition
+  letter-spacing: .5px
+  text-align: left
+  outline: none
+  &:active, &:focus
+    outline: none
