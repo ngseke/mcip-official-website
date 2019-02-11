@@ -12,7 +12,7 @@ const mcip = new Vue({
   methods: {
     setShrink () {
       window.addEventListener('scroll', (e) => {
-        const top = document.documentElement.scrollTop
+        const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
         this.isNavShrink = top > 200
         this.isLineAppScreenshotShrink = top < 100
       })
