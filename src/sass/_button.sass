@@ -3,7 +3,7 @@
 
 .gradient-btn
   +btn-common
-  border-radius: 1000px
+  border-radius: 100rem
   background-image: $btn-gradient
   color: white
   padding: .6rem 1.5rem
@@ -13,6 +13,9 @@
   text-align: center
   &.secondary
     background-image: $btn-secondary-gradient
+  &.line
+    background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%)
+    background-image: linear-gradient(-225deg, #20E2D7 0%, #F9FEA5 100%)
   &.block
     display: block
     width: 100%

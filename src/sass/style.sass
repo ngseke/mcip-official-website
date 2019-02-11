@@ -2,6 +2,7 @@
 @import "nav"
 @import "button"
 @import "header"
+@import "footer"
 
 @media (max-width: 576px)
   html
@@ -11,6 +12,49 @@ body
   font-family: $font-family
 
 section
-  +py(2rem)
+  +py(4rem)
   &.secondary
-    background-color: #f8f9fa 
+    background-color: #f8f9fa
+  &.line-app
+    img.screenshot
+      max-width: 15rem
+      width: 100%
+      height: auto
+
+h3
+  font-size: 2.8rem
+  font-weight: 500
+  line-height: 1.2
+  margin-bottom: 3rem
+
+@media (max-width: 768px)
+  h3
+    font-size: 2.5rem
+
+.partners
+  justify-content: space-around
+  .item
+    +flex-center
+    list-style: none
+    margin-bottom: 2rem
+    img
+      height: 9rem
+      width: auto
+      margin-bottom: .5rem
+      border-radius: 15px
+    h4
+      color: #333
+      font-size: 1.2rem
+      font-weight: 400
+
+.qrcode
+  width: 100%
+  height: auto
+  max-width: 10rem
+
+
+.align-center-article
+  +flex-center
+  height: 100%
+  flex-direction: column
+  align-items: stretch

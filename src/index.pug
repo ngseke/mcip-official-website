@@ -6,28 +6,50 @@ html(lang='zh-Hant-TW')
     meta(name='viewport' content='width=device-width,initial-scale=1.0')
     include pug/include/style.pug
     meta(name='description' content='大專院校民謠音樂比賽平台')
-    title 樂台計畫
+    title 樂台計畫 : 大專院校民謠音樂比賽平台
   body
     #app
       include pug/include/nav.pug
+      include pug/include/data.pug
       
       header
         .logo.horizontal
-          .box #[.a]#[.b]
+          .box #[.a] #[.b]
           h1
             each _, i in `樂台計畫`
               span(style=`animation-delay: ${i * .08 + .65}s`)=_
         h2 大專院校民謠音樂比賽平台
           
-      section.container
+      //- section.container
         .row
           .col-4
             img.img-fluid(src='https://www.jkos.com/image/client/kv-08.png')
+            
+      section.line-app
+        .container
+          .row.justify-content-around
+            .col-12.col-md-4.col-lg-3.order-2.order-md-1.text-center
+              img.screenshot(src='img/screenshot/line-app-mockup.png')
+
+            .col-12.col-md-8.col-lg-6.order-1.order-md-2
+              .align-center-article
+                h3 三分鐘完成報名，#[br]速速加入樂台計畫！
+                .mb-5.text-center.text-md-left
+                  img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg')
+                  a.gradient-btn.line(target='_blank' href='https://line.me/R/ti/p/11FZvoRuwx') 加入 Line 官方帳號
+            
+      section.secondary
+        .container
+          .row
+            .col-12
+              h3 合作夥伴
+            .col-12
+              .row.partners
+                each _ in partners
+                  .col-6.col-md-3.col-lg-4.col-xl-2
+                    .item
+                      img(src=_.img)
+                      h4=_.name
               
-      section.container.secondary
-        .row
-          .col-12
-            h3 合作夥伴
-          .col-4
-        
+    include pug/include/footer.pug
     include pug/include/script.pug
