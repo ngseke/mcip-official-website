@@ -1,7 +1,7 @@
 doctype html
 html(lang='zh-Hant-TW')
   head
-    include pug/include/data.pug
+    include pug/include/variables.pug
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible' content='IE=edge')
     meta(name='viewport' content='width=device-width,initial-scale=1.0')
@@ -17,19 +17,19 @@ html(lang='zh-Hant-TW')
     #app
       include pug/include/nav.pug
       header
-        .logo.horizontal
-          .box #[.a] #[.b]
+        .logo.horizontal(:key='logoKey' @click='logoKey++' v-if='logoKey')
+          .box
           h1
             each _, i in `樂台計畫`
               span(style=`animation-delay: ${i * .08 + .65}s`)=_
         h2 大專院校民謠音樂比賽平台
         
-      section#line-app.line-app
+      section#line-app.line-app(ref='lineAppSection')
         .container
           .row.justify-content-around
             .col-12.col-md-3.col-lg-3.order-2.order-md-1
               .screenshot-area
-                img.screenshot(src='img/screenshot/line-app-mockup.png' alt='Line App 畫面截圖' :class='{ shrink: isLineAppScreenshotShrink }')
+                img.mockup(src='img/screenshot/line-app-mockup.png' alt='Line App 畫面截圖' :class='{ shrink: isLineAppScreenshotShrink }')
                 //- img.avatar.d-none.d-md-inline-block(src='img/line-avatar.png')
               
             .col-12.col-md-8.col-lg-6.order-1.order-md-2
@@ -38,20 +38,33 @@ html(lang='zh-Hant-TW')
                 .mb-5.text-center.text-md-left
                   img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg' alt='樂台計畫 Line App QRCode')
                   a.gradient-btn.line(target='_blank' href='https://line.me/R/ti/p/11FZvoRuwx') 加入 Line 官方帳號
+    
+      //- section.secondary
+        .container
+          .row.justify-content-around
+            .col-12.col-md-3.col-lg-3.order-2.order-md-1
+              .screenshot-area
+                img.screenshot(src='img/screenshot/competition.png' alt='即時賽況畫面截圖')
             
+            .col-12.col-md-8.col-lg-6.order-1.order-md-2
+              .align-center-article
+                h3.big 即時賽況 你看得見
+                p.pl-1 選手掌握比賽流程，觀眾
+                              
       section#partner.secondary
         .container
           .row.justify-content-center
-            .col-12
+            .col-12.col-lg-10
               h3 合作夥伴
+            .col-12.col-lg-10.mb-3
+              //- p 眾多北部知名大專院校音樂比賽，皆以樂台計畫作為報名入口。
             .col-12.col-lg-10
               .row.partners
                 each _ in partners
                   .col-6.col-md-3.col-lg-4
-                    a.item(href=_.link target='_blank')
+                    a.item(href=_.link :href=`getFacebookLink(${_.facebookId})` target='_blank')
                       img(src=_.img)
                       h4=_.name
-
 
     include pug/include/footer.pug
     include pug/include/script.pug

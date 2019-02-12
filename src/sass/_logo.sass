@@ -54,7 +54,8 @@
     width: 50px
     height: 50px
     position: relative
-    .a, .b
+    &::after, &::before
+      content: ''
       position: absolute
       top: 0
       left: 0
@@ -64,11 +65,11 @@
       animation-fill-mode: backwards
       background: url('../img/logo/logo-white-a.svg')
       background-size: contain
-    .b
+    &::before
       animation-delay: .2s
       background: url('../img/logo/logo-white-b.svg')
     &.light
-      .a
+      &::after
         background: url('../img/logo/logo-black-a.svg')
-      .b
+      &::before
         background: url('../img/logo/logo-black-b.svg')
