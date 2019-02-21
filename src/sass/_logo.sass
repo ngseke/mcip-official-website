@@ -73,3 +73,9 @@
         background: url('../img/logo/logo-black-a.svg')
       &::before
         background: url('../img/logo/logo-black-b.svg')
+  &.no-animation
+    .box
+      &::after, &::before
+        animation: none
+    h1 span
+      animation: none

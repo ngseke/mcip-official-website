@@ -24,6 +24,7 @@ section
 .screenshot-area
   position: relative
   text-align: center
+  perspective: 700px
   img
     &.mockup, &.screenshot
       transition: all .7s
@@ -35,6 +36,9 @@ section
     &.screenshot
       border-radius: 15px
       box-shadow: $big-btn-shadow
+      transform: rotateX(0deg) rotateY(10deg)
+      transform-style: preserve-3d
+
 
   img.avatar
     +wh(7rem)

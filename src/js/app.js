@@ -3,12 +3,9 @@ const mcip = new Vue({
   data: {
     isNavShrink: false,
     isLineAppScreenshotShrink: false,
-    logoKey: 0,
   },
   mounted () {
     this.setShrink()
-    this.logoKey++
-    console.log(`Hey! You found me ☺️! `)
   },
   methods: {
     setShrink () {

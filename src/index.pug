@@ -18,7 +18,7 @@ html(lang='zh-Hant-TW')
     #app
       include pug/include/nav.pug
       header
-        .logo.horizontal(:key='logoKey' @click='logoKey++' v-if='logoKey')
+        .logo.horizontal.no-animation
           .box
           h1
             each _, i in `樂台計畫`
@@ -31,7 +31,6 @@ html(lang='zh-Hant-TW')
             .col-12.col-md-3.col-lg-3.order-2.order-md-1
               .screenshot-area
                 img.mockup(src='img/screenshot/line-app-mockup.png' alt='Line App 畫面截圖' :class='{ shrink: isLineAppScreenshotShrink }')
-                //- img.avatar.d-none.d-md-inline-block(src='img/line-avatar.png')
               
             .col-12.col-md-8.col-lg-6.order-1.order-md-2
               .align-center-article
@@ -46,11 +45,10 @@ html(lang='zh-Hant-TW')
             .col-12.col-md-3.col-lg-3.order-2.order-md-1
               .screenshot-area
                 img.screenshot(src='img/screenshot/competition.png' alt='即時賽況畫面截圖')
-            
             .col-12.col-md-8.col-lg-6.order-1.order-md-2
               .align-center-article
                 h3.big 即時賽況 你看得見
-                p.pl-1 選手掌握比賽流程，觀眾
+                p.pl-1 選手掌握比賽流程，觀眾 Follow 精彩演出不間斷
                               
       section#partner.secondary
         .container
