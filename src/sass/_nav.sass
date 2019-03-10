@@ -21,7 +21,12 @@ $shrink-bg-color: rgba(#1e1e1e, 1)
     .navbar-brand
       opacity: 1
       transform: none
-
+  .divide
+    height: .8rem
+    width: 0
+    display: inline-block
+    border-left: 1px solid rgba(#eee, .3)
+    margin: 0 .5rem
 
 @media (max-width: 575.98px)
   #nav
@@ -32,3 +37,8 @@ $shrink-bg-color: rgba(#1e1e1e, 1)
     .navbar-nav
       padding-top: 1rem
       +px(.5rem)
+    .divide
+      height: 0
+      width: 100%
+      border-bottom: 1px solid rgba(#eee, .3)
+      margin: .5rem 0

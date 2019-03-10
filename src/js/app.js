@@ -3,18 +3,22 @@ const mcip = new Vue({
   data: {
     isNavShrink: false,
     isLineAppScreenshotShrink: false,
+    isEnvelopeShrink: false,
   },
   mounted () {
     this.setShrink()
   },
   methods: {
     setShrink () {
-
       window.addEventListener('scroll', (e) => {
         const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
         this.isNavShrink = this.$refs.lineAppSection.getBoundingClientRect().top < 100
-        if (this.$refs.lineAppSection)
+
+        if (this.$refs.lineAppSection && this.$refs.contactSection) {
           this.isLineAppScreenshotShrink = this.$refs.lineAppSection.getBoundingClientRect().top > 200
+          this.isEnvelopeShrink = this.$refs.contactSection.getBoundingClientRect().top > 500
+          console.log(this.$refs.contactSection.getBoundingClientRect().top)
+        }
       })
     },
     getFacebookLink (id) {

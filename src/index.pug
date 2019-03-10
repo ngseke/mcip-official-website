@@ -37,7 +37,7 @@ html(lang='zh-Hant-TW')
                 h3 三分鐘完成報名，#[br]現在加入樂台計畫！
                 .mb-5.text-center.text-md-left
                   img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg' alt='樂台計畫 Line App QRCode')
-                  a.gradient-btn.line(target='_blank' href='https://line.me/R/ti/p/11FZvoRuwx') 加入 Line 官方帳號
+                  a.gradient-btn.line(target='_blank' href='line/') 加入 Line 官方帳號
     
       //- section.secondary
         .container
@@ -56,14 +56,22 @@ html(lang='zh-Hant-TW')
             .col-12.col-lg-10
               h3 合作夥伴
             .col-12.col-lg-10.mb-3
-              //- p 眾多北部知名大專院校音樂比賽，皆以樂台計畫作為報名入口。
             .col-12.col-lg-10
               .row.partners
                 each _ in partners
-                  .col-6.col-md-3.col-lg-4
+                  .col-6.col-sm-4.col-xl-3
                     a.item(href=_.link :href=`getFacebookLink(${_.facebookId})` target='_blank')
                       img(src=_.img)
                       h4=_.name
+                      
+      section#contact(ref='contactSection')
+        .container
+          .row.justify-content-center.align-items-center
+            .col-12.col-md-6
+              h3 聯絡我們
+              .name Kelly Huang / 公關
+              a.email(href='mailto:k20132932@gmail.com') k20132932@gmail.com
+            .col-12.col-md-auto: .envelope(:class='{ shrink: isEnvelopeShrink }')
 
     include pug/include/footer.pug
     include pug/include/script.pug
