@@ -37,7 +37,7 @@ html(lang='zh-Hant-TW')
                 h3 三分鐘完成報名，#[br]現在加入樂台計畫！
                 .mb-5.text-center.text-md-left
                   img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg' alt='樂台計畫 Line App QRCode')
-                  a.gradient-btn.line(target='_blank' href='line/') 加入 Line 官方帳號
+                  a.gradient-btn.line(target='_blank' href='./line/index.pug') 加入 Line 官方帳號
     
       //- section.secondary
         .container
@@ -64,14 +64,22 @@ html(lang='zh-Hant-TW')
                       img(src=_.img)
                       h4=_.name
                       
-      section#contact(ref='contactSection')
+      section#contact(ref='contactSection' v-cloak)
         .container
           .row.justify-content-center.align-items-center
-            .col-12.col-md-6
+            .col-12.col-lg-6
               h3 聯絡我們
-              .name Kelly Huang / 公關
-              a.email(href='mailto:k20132932@gmail.com') k20132932@gmail.com
-            .col-12.col-md-auto: .envelope(:class='{ shrink: isEnvelopeShrink }')
+              form(@submit.prevent='submitContact' v-if='contactStatus <= 1')
+                input(placeholder='姓名 *' maxlength=50 required v-model.trim='contact.name')
+                input(type='email' placeholder='Email *' maxlength=100 required v-model.trim='contact.email')
+                input(placeholder='聯絡電話' maxlength=50 v-model.trim='contact.phone')
+                textarea(placeholder='內容 *' required rows=4 maxlength=1000 v-model.trim='contact.content')  
+                button.gradient-btn.submit(type='submit' :disabled='contactStatus === 1') {{ contactStatus === 1 ? `傳送中...` : `送出` }}
+                small.text-danger(v-if='errorMessage') {{ errorMessage }}
+              .success(v-else-if='contactStatus === 2') 
+                img(src='img/check.svg')
+                span 謝謝你的來信，我們將會盡快與您聯繫
+            .col-3.d-none.d-lg-flex: .envelope(:class='{ shrink: isEnvelopeShrink }')
 
     include pug/include/footer.pug
     include pug/include/script.pug
