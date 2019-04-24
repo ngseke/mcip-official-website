@@ -4,7 +4,7 @@ const mcip = new Vue({
     isNavShrink: false,
     isLineAppScreenshotShrink: false,
     isEnvelopeShrink: false,
-    contact: { name: '黃省喬', email: 'test@nobody.com',   phone: '', content:'' },
+    contact: { name: '', email: '',   phone: '', content:'' },
     contactStatus: 0, // 0: 預設, 1: 傳送中, 2: 成功
     errorMessage: null,
   },
