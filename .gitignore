@@ -66,3 +66,6 @@ node_modules/
 
 public/
 node_modules/
+
+.cache
+dist/
