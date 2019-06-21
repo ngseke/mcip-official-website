@@ -33,6 +33,7 @@ const mcip = new Vue({
     submitContact () {
       this.errorMessage = null
       this.contactStatus = 1
+
       fetch('https://us-central1-mc-integration-platform.cloudfunctions.net/firestoreContact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

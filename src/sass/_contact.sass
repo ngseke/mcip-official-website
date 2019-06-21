@@ -31,11 +31,23 @@
     flex-direction: row
     margin-top: 3rem
     // border: solid #ddd 3px
-    // padding: 2rem
-    // border-radius: 15px
+    padding: 2rem
+    border-radius: 15px
     img
       height: 3rem
       width: auto
       margin-right: 1rem
     span
-      color: #333
+      color: #777
+
+  .contact-enter
+    transform: translateX(2rem)
+    opacity: 0
+  .contact-leave-to
+    transform: translateX(-2rem)
+    opacity: 0
+  .contact-enter-active, .contact-leave-active
+    transition: all .4s
+  .contact-enter-to, .contact-leave
+    transform: none
+    opacity: 1

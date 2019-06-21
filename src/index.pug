@@ -7,12 +7,12 @@ html(lang='zh-Hant-TW')
     meta(http-equiv='X-UA-Compatible' content='IE=edge')
     meta(name='viewport' content='width=device-width,initial-scale=1.0')
     meta(property='og:image' content='img/favicon.png')
-    meta(property='og:title' content='樂台計畫 : 大專院校民謠音樂比賽平台')
+    meta(property='og:title' content='樂台計畫 - 大專院校民謠音樂比賽平台')
     meta(property='og:type' content='website')
     meta(property='og:description' content=description)
     meta(name='description' content=description)
     meta(name='author' content='Huang Xingqiao')
-    title 樂台計畫 : 大專院校民謠音樂比賽平台
+    title 樂台計畫 - 大專院校民謠音樂比賽平台
     include pug/include/style.pug
   body
     #app
@@ -68,16 +68,17 @@ html(lang='zh-Hant-TW')
           .row.justify-content-center.align-items-center
             .col-12.col-lg-6
               h3 聯絡我們
-              form(@submit.prevent='submitContact' v-if='contactStatus <= 1')
-                input(placeholder='姓名 *' maxlength=50 required v-model.trim='contact.name')
-                input(type='email' placeholder='Email *' maxlength=100 required v-model.trim='contact.email')
-                input(placeholder='聯絡電話' maxlength=50 v-model.trim='contact.phone')
-                textarea(placeholder='內容 *' required rows=4 maxlength=1000 v-model.trim='contact.content')  
-                button.gradient-btn.submit(type='submit' :disabled='contactStatus === 1') {{ contactStatus === 1 ? `傳送中...` : `送出` }}
-                small.text-danger(v-if='errorMessage') {{ errorMessage }}
-              .success(v-else-if='contactStatus === 2') 
-                img(src='img/check.svg')
-                span 謝謝你的來信，我們將會盡快與您聯繫
+              transition(name='contact' mode='out-in')
+                form(@submit.prevent='submitContact' v-if='contactStatus <= 1')
+                  input(placeholder='姓名 *' maxlength=50 required v-model.trim='contact.name')
+                  input(type='email' placeholder='Email *' maxlength=100 required v-model.trim='contact.email')
+                  input(type='tel' placeholder='聯絡電話' maxlength=50 v-model.trim='contact.phone')
+                  textarea(placeholder='內容 *' required rows=4 maxlength=1000 v-model.trim='contact.content')  
+                  button.gradient-btn.submit(type='submit' :disabled='contactStatus === 1') {{ contactStatus === 1 ? `傳送中...` : `送出` }}
+                  small.text-danger(v-if='errorMessage') {{ errorMessage }}
+                .success(v-else-if='contactStatus === 2') 
+                  img(src='img/check.svg')
+                  span 謝謝你的來信，我們將會盡快與您聯繫!
             .col-3.d-none.d-lg-flex: .envelope(:class='{ shrink: isEnvelopeShrink }')
 
     include pug/include/footer.pug
