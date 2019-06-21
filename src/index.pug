@@ -53,13 +53,12 @@ html(lang='zh-Hant-TW')
       section#partner.secondary
         .container
           .row.justify-content-center
-            .col-12.col-lg-10
-              h3 合作夥伴
             .col-12.col-lg-10.mb-3
+              h3 合作夥伴
             .col-12.col-lg-10
               .row.partners
                 each _ in partners
-                  .col-6.col-sm-4.col-xl-3
+                  .col-6.col-sm-6.col-xl-4
                     a.item(href=_.link :href=`getFacebookLink(${_.facebookId})` target='_blank')
                       img(src=_.img)
                       h4=_.name

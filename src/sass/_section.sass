@@ -50,12 +50,13 @@ section
     box-shadow: $big-btn-shadow
 
 .partners
-  justify-content: space-around
   .item
-    +flex-center
+    display: flex
+    align-items: center
+    flex-direction: row
     transition: transform .5s
     list-style: none
-    margin-bottom: 2rem
+    margin-bottom: .5rem
     &:hover
       text-decoration: none
       transform: scale(1.05)
@@ -65,15 +66,16 @@ section
       transform: scale(.98)
       color: red
     img
-      height: 9rem
-      width: auto
+      height: auto
+      width: 4rem
       margin-bottom: .75rem
-      border-radius: 15px
+      margin-right: .75rem
+      border-radius: 10px
       transition: box-shadow .7s
     h4
       color: #333
-      font-size: 1.2rem
-      font-weight: 400
+      font-size: 1rem
+      font-weight: 500
 
 .qrcode
   width: 100%
