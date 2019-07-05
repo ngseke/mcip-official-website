@@ -1,14 +1,18 @@
-nav#nav.navbar.navbar-expand-sm.navbar-dark.fixed-top(:class='{ shrink: isNavShrink }')
+nav#nav.navbar.navbar-expand-md.navbar-dark.fixed-top(:class='{ shrink: isNavShrink }')
   .container
     a.navbar-brand(href='index.pug') 
       img(src='img/logo/logo-white.svg' alt='MCIP Logo White')
       span 樂台計畫
-    button.navbar-toggler.border-0(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+    button.navbar-toggler.border-0(type='button' data-toggle='collapse' data-target='#navbarSupportedContent')
       span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
       ul.navbar-nav.ml-auto
-        li.nav-item: a.nav-link(href='#line-app') Line App
-        li.nav-item: a.nav-link(href='#partner') 合作夥伴
-        li.nav-item: a.nav-link(href='#contact') 聯絡我們
+        li.nav-item: a.nav-link(v-scroll-to='{ el: `#line-app`, offset: -70 }') Line App
+        li.nav-item: a.nav-link(v-scroll-to='{ el: `#partner`, offset: -70 }') 合作夥伴
+        li.nav-item: a.nav-link(v-scroll-to='{ el: `#contact`, offset: -70 }') 聯絡我們
+        li(style={ display: `flex`, alignItems: `center` }): .divide
+        li.nav-item: a.nav-link(href='https://www.facebook.com/mcipApp/' target='_blank' title='樂台計畫 Facebook 粉絲專頁')
+          img.facebook-icon(src='img/facebook.svg')
+          span.d-span.d-md-none.ml-3 Facebook 粉絲專頁
         li(style={ display: `flex`, alignItems: `center` }): .divide
         li.nav-item: a.nav-link.manage(href='https://manage.mcip.ml/') 社團管理

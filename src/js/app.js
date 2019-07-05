@@ -1,3 +1,6 @@
+const VueScrollTo = require('vue-scrollto')
+const VueCountTo = require('vue-count-to')
+
 const mcip = new Vue({
   el: `#app`,
   data: {
@@ -7,6 +10,7 @@ const mcip = new Vue({
     contact: { name: '', email: '',   phone: '', content:'' },
     contactStatus: 0, // 0: 預設, 1: 傳送中, 2: 成功
     errorMessage: null,
+    isCountedTo: false,
   },
   mounted () {
     this.setShrink()
@@ -21,6 +25,8 @@ const mcip = new Vue({
           this.isLineAppScreenshotShrink = this.$refs.lineAppSection.getBoundingClientRect().top > 200
           this.isEnvelopeShrink = this.$refs.contactSection.getBoundingClientRect().top > 500
         }
+
+        if (top > 250 && !this.isCountedTo) this.startCountTo()
       })
     },
     getFacebookLink (id) {
@@ -49,6 +55,11 @@ const mcip = new Vue({
           this.errorMessage = `發生了一些問題，請稍後再試`
           this.contactStatus = 0
         })
+    },
+    startCountTo () {
+      this.$refs[`count-to-user`].start()
+      this.$refs[`count-to-partner`].start()
+      this.isCountedTo = true
     }
   }
 })
