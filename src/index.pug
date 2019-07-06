@@ -1,6 +1,7 @@
 doctype html
 html(lang='zh-Hant-TW')
   head
+    include pug/include/template.pug
     include pug/include/variables.pug
     include pug/include/ga.pug
     meta(charset='utf-8')
@@ -39,7 +40,7 @@ html(lang='zh-Hant-TW')
                   img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg' alt='樂台計畫 Line App QRCode')
                   a.gradient-btn.line(target='_blank' href='./line/index.pug') 加入 Line 官方帳號
                 
-                .d-flex.justify-content-center.justify-content-md-start
+                .d-flex.justify-content-center.justify-content-md-start(v-cloak)
                   .count-to.text-center.text-md-left
                     count-to.number(:end-val='2200' :duration='4000' suffix='+' :autoplay='false' ref='count-to-user')
                     .info 樂台計畫總用戶數
@@ -58,25 +59,57 @@ html(lang='zh-Hant-TW')
               .align-center-article
                 h3.big 即時賽況 你看得見
                 p.pl-1 選手掌握比賽流程，觀眾 Follow 精彩演出不間斷
-      //- section#news.secondary
+                
+      section#news.secondary
         .container
-          .row.justify-content-around
-            .col-12.col-lg-12.mb-3
+          .row 
+            .col-12.col-lg-12.mb-3(@click='fetchArticle()')
               h3 最新消息
-            .col-12 
-              .scroll
-                ul
-                  li.card(v-for='i in 10')
-                    img.card-img-top(src='' )
-                    .card-body
-                      p.card-text
-                        | Some quick example text to build on the card title and make up the bulk of the card's content.
+              
+            template(v-if='!articleList')
+              +article-card-loader 
+              - let i = 0
+              while ++i < 3
+                +article-card-loader 
+                
+            template(v-else-if='articleList.length > 0' v-cloak)
+              .col-12.col-md-6.col-lg-4(v-for='(i, index) in articleList')
+                .card(@click='showArticleModal(index)')
+                  img.card-img-top(:src='i.image')
+                  .card-img-overlay 
+                    .author
+                      img.avatar(src='https://i.imgur.com/INFIh4d.png')
+                      .info
+                        .name {{ i.author }}
+                        .date {{ convertTime(i.timestamp) }}
+                  .card-body(v-html='convertMarkdown(i.article)')
 
-                              
-      section#partner.secondary
+                    
+            template(v-else) 目前尚無最新消息
+            
+        sweet-modal(ref='article-modal' width='100%' v-cloak) 
+          .container(v-if='currentArticle')
+            .row.justify-content-center
+              .col-12.col-lg-8
+                .author
+                  img.avatar(src='https://i.imgur.com/INFIh4d.png')
+                  .info
+                    .name {{ currentArticle.author }}
+                    .date {{ convertTime(currentArticle.timestamp) }}
+              .col-12.col-lg-8
+                .sweet-modal-content
+                  img(:src='currentArticle.image')
+                  div(v-html='convertMarkdown(currentArticle.article)') 
+              .col-12
+                .d-flex.justify-content-center
+                  a.big-close-btn(href='#' @click.stop='hideArticleModal' title='關閉')
+            
+                  
+              
+      section#partner 
         .container
           .row.justify-content-center
-            .col-12.col-lg-10.mb-3
+            .col-12.mb-3
               h3 合作夥伴
             .col-12.col-lg-10
               .row.partners
@@ -86,7 +119,7 @@ html(lang='zh-Hant-TW')
                       img(src=_.img)
                       h4=_.name
                       
-      section#contact(ref='contactSection' v-cloak)
+      section#contact.secondary(ref='contactSection' v-cloak)
         .container
           .row.justify-content-center.align-items-center
             .col-12.col-lg-6

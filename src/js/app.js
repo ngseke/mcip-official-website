@@ -1,5 +1,10 @@
 const VueScrollTo = require('vue-scrollto')
 const VueCountTo = require('vue-count-to')
+const axios = require('axios')
+const dayjs = require('dayjs')
+const marked = require('marked')
+
+import { SweetModal } from 'sweet-modal-vue'
 
 const mcip = new Vue({
   el: `#app`,
@@ -11,9 +16,12 @@ const mcip = new Vue({
     contactStatus: 0, // 0: 預設, 1: 傳送中, 2: 成功
     errorMessage: null,
     isCountedTo: false,
+    articleList: null,
+    currentArticle: null,
   },
   mounted () {
     this.setShrink()
+    this.fetchArticle()
   },
   methods: {
     setShrink () {
@@ -37,21 +45,16 @@ const mcip = new Vue({
       else return `https://www.facebook.com/${id}`
     },
     submitContact () {
+      const url = `https://us-central1-mc-integration-platform.cloudfunctions.net/firestoreContact`
+
       this.errorMessage = null
       this.contactStatus = 1
 
-      fetch('https://us-central1-mc-integration-platform.cloudfunctions.net/firestoreContact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(this.contact)
-      })
+      axios.post(url, this.contact)
         .then(res => {
-          if (!res.ok)
-            throw Error(res.statusText)
-          return res
-        }).then((jsonData) => {
+          console.log(res)
           this.contactStatus = 2
-        }).catch((e) => {
+        }).catch(e => {
           this.errorMessage = `發生了一些問題，請稍後再試`
           this.contactStatus = 0
         })
@@ -60,6 +63,38 @@ const mcip = new Vue({
       this.$refs[`count-to-user`].start()
       this.$refs[`count-to-partner`].start()
       this.isCountedTo = true
-    }
-  }
+    },
+    fetchArticle (after = null) {
+      const url = `https://us-central1-mc-integration-platform.cloudfunctions.net/article/app`
+      const limit = 3
+
+      this.articleList = null
+
+      axios.get(url, { params: { after, limit } })
+        .then(res => {
+          this.articleList = res.data
+          console.log(res.data)
+        }).catch(e => {
+        })
+    },
+    convertTime (_) {
+      return dayjs(_).format('YYYY年MM月DD日')
+    },
+    convertMarkdown (_) {
+      return marked(_)
+    },
+    fetchArticleImageUrl (file) {
+      return `https://us-central1-mc-integration-platform.cloudfunctions.net/` + file
+    },
+    showArticleModal (index) {
+      this.currentArticle = { ...this.articleList[index] }
+      this.$refs[`article-modal`].open()
+    },
+    hideArticleModal () {
+      this.$refs[`article-modal`].close()
+    },
+  },
+  components: {
+		SweetModal,
+	}
 })
