@@ -87,8 +87,8 @@ html(lang='zh-Hant-TW')
                     
             template(v-else) 目前尚無最新消息
             
-        sweet-modal(ref='article-modal' width='100%' v-cloak) 
-          .container(v-if='currentArticle')
+        sweet-modal(ref='article-modal' width='100%' v-if='currentArticle' v-cloak) 
+          .container
             .row.justify-content-center
               .col-12.col-lg-8
                 .author
@@ -102,9 +102,7 @@ html(lang='zh-Hant-TW')
                   div(v-html='convertMarkdown(currentArticle.article)') 
               .col-12
                 .d-flex.justify-content-center
-                  a.big-close-btn(href='#' @click.stop='hideArticleModal' title='關閉')
-            
-                  
+                  a.big-close-btn(href='#' @click.prevent='hideArticleModal' title='關閉')
               
       section#partner 
         .container

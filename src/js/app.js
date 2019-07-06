@@ -87,11 +87,16 @@ const mcip = new Vue({
       return `https://us-central1-mc-integration-platform.cloudfunctions.net/` + file
     },
     showArticleModal (index) {
-      this.currentArticle = { ...this.articleList[index] }
-      this.$refs[`article-modal`].open()
+      this.currentArticle = null
+      this.$nextTick(() => {
+        this.currentArticle = { ...this.articleList[index] }
+        this.$nextTick(() => this.$refs[`article-modal`].open())
+      })
+
     },
     hideArticleModal () {
       this.$refs[`article-modal`].close()
+
     },
   },
   components: {
