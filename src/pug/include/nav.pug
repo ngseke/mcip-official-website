@@ -8,6 +8,7 @@ nav#nav.navbar.navbar-expand-md.navbar-dark.fixed-top(:class='{ shrink: isNavShr
     #navbarSupportedContent.collapse.navbar-collapse
       ul.navbar-nav.ml-auto
         li.nav-item: a.nav-link(v-scroll-to='{ el: `#line-app`, offset: -70 }') Line App
+        li.nav-item: a.nav-link(v-scroll-to='{ el: `#news`, offset: -70 }') 最新消息
         li.nav-item: a.nav-link(v-scroll-to='{ el: `#partner`, offset: -70 }') 合作夥伴
         li.nav-item: a.nav-link(v-scroll-to='{ el: `#contact`, offset: -70 }') 聯絡我們
         li(style={ display: `flex`, alignItems: `center` }): .divide
