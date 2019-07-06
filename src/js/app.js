@@ -31,7 +31,8 @@ const mcip = new Vue({
 
         if (this.$refs.lineAppSection && this.$refs.contactSection) {
           this.isLineAppScreenshotShrink = this.$refs.lineAppSection.getBoundingClientRect().top > 200
-          this.isEnvelopeShrink = this.$refs.contactSection.getBoundingClientRect().top > 500
+          this.isEnvelopeShrink = this.$refs.contactSection.getBoundingClientRect().top > 300
+          console.log(this.$refs.contactSection.getBoundingClientRect().top)
         }
 
         if (top > 250 && !this.isCountedTo) this.startCountTo()
@@ -50,9 +51,9 @@ const mcip = new Vue({
       this.errorMessage = null
       this.contactStatus = 1
 
-      axios.post(url, this.contact)
+
+      axios.post(url, { ...this.contact, source: 2, type: 2 })
         .then(res => {
-          console.log(res)
           this.contactStatus = 2
         }).catch(e => {
           this.errorMessage = `發生了一些問題，請稍後再試`
