@@ -1,29 +1,38 @@
+import 'babel-polyfill'
+import { SweetModal } from 'sweet-modal-vue'
+
 const VueScrollTo = require('vue-scrollto')
 const VueCountTo = require('vue-count-to')
 const axios = require('axios')
 const dayjs = require('dayjs')
 const marked = require('marked')
 
-import { SweetModal } from 'sweet-modal-vue'
-
 const mcip = new Vue({
   el: `#app`,
   data: {
+    // 頁面動畫: 根據滾動位置判斷
     isNavShrink: false,
     isLineAppScreenshotShrink: false,
     isEnvelopeShrink: false,
-    contact: { name: '', email: '',   phone: '', content:'' },
-    contactStatus: 0, // 0: 預設, 1: 傳送中, 2: 成功
+    // 聯絡我們
+    contact: {},
+    contactStatus: 0,   // 0: 預設, 1: 傳送中, 2: 成功
     errorMessage: null,
+    // 數字累加動畫
     isCountedTo: false,
+    // 最新消息
     articleList: null,
     currentArticle: null,
+    isFetchingArticle: false,
+    isArticleEnd: false,
   },
   mounted () {
+    this.initContactField()
     this.setShrink()
     this.fetchArticle()
   },
   methods: {
+    // 根據滾動位置設定是否已滾動到該元素位置
     setShrink () {
       window.addEventListener('scroll', (e) => {
         const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
@@ -32,12 +41,12 @@ const mcip = new Vue({
         if (this.$refs.lineAppSection && this.$refs.contactSection) {
           this.isLineAppScreenshotShrink = this.$refs.lineAppSection.getBoundingClientRect().top > 200
           this.isEnvelopeShrink = this.$refs.contactSection.getBoundingClientRect().top > 300
-          console.log(this.$refs.contactSection.getBoundingClientRect().top)
         }
 
         if (top > 250 && !this.isCountedTo) this.startCountTo()
       })
     },
+    // 根據裝置取得不同的 Facebook 粉專連結(為了使用預設內置 app 開啟)
     getFacebookLink (id) {
       const device = new MobileDetect(window.navigator.userAgent)
 
@@ -45,59 +54,69 @@ const mcip = new Vue({
       else if (device.is(`AndroidOS`)) return `fb://page/${id}`
       else return `https://www.facebook.com/${id}`
     },
-    submitContact () {
+    // 初始化聯絡我們欄位內容
+    initContactField () {
+      const fieldNames = [`name`, `email`, `phone`, `content`]
+      this.contact = {}
+      fieldNames.forEach(_ => this.contact[_] = ``)
+    },
+    // 送出聯絡我們表單
+    async submitContact () {
       const url = `https://us-central1-mc-integration-platform.cloudfunctions.net/firestoreContact`
 
       this.errorMessage = null
       this.contactStatus = 1
 
-
-      axios.post(url, { ...this.contact, source: 2, type: 2 })
-        .then(res => {
-          this.contactStatus = 2
-        }).catch(e => {
-          this.errorMessage = `發生了一些問題，請稍後再試`
-          this.contactStatus = 0
-        })
+      try {
+        const res = await axios.post(url, { ...this.contact, source: 2, type: 2 })
+        // await (new Promise(resolve => setTimeout(resolve, 1000)))
+        this.contactStatus = 2
+      } catch (e) {
+        this.errorMessage = `發生了一些問題，請稍後再試`
+        this.contactStatus = 0
+      }
     },
+    // 播放數字累加動畫
     startCountTo () {
       this.$refs[`count-to-user`].start()
       this.$refs[`count-to-partner`].start()
       this.isCountedTo = true
     },
-    fetchArticle (after = null) {
+    // 取得最新消息
+    async fetchArticle (after = null) {
       const url = `https://us-central1-mc-integration-platform.cloudfunctions.net/article/app`
       const limit = 3
 
-      this.articleList = null
+      if (this.isFetchingArticle) return
+      this.isFetchingArticle = true
 
-      axios.get(url, { params: { after, limit } })
-        .then(res => {
-          this.articleList = res.data
-          console.log(res.data)
-        }).catch(e => {
-        })
+      const list = (await axios.get(url, { params: { after, limit } })).data
+
+      if (!this.articleList) this.articleList = list
+      else this.articleList = [...this.articleList, ...list]
+
+      if (list.length < 3) this.isArticleEnd = true
+      this.isFetchingArticle = false
     },
+    // 將 timestamp 轉換為字串
     convertTime (_) {
       return dayjs(_).format('YYYY年MM月DD日')
     },
+    // 將 md 語法轉換為 html
     convertMarkdown (_) {
       return marked(_)
     },
-    fetchArticleImageUrl (file) {
-      return `https://us-central1-mc-integration-platform.cloudfunctions.net/` + file
-    },
+    // 彈出文章視窗
     showArticleModal (index) {
       this.currentArticle = null
       this.$nextTick(() => {
         this.currentArticle = { ...this.articleList[index] }
         this.$nextTick(() => this.$refs[`article-modal`].open())
       })
-
     },
+    // 關閉文章視窗
     hideArticleModal () {
       this.$refs[`article-modal`].close()
-
     },
   },
   components: {

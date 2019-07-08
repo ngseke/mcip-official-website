@@ -63,7 +63,7 @@ html(lang='zh-Hant-TW')
       section#news
         .container
           .row 
-            .col-12.col-lg-12.mb-3(@click='fetchArticle()')
+            .col-12.col-lg-12.mb-3 
               h3 最新消息
               
             template(v-if='!articleList')
@@ -83,7 +83,8 @@ html(lang='zh-Hant-TW')
                         .name {{ i.author }}
                         .date {{ convertTime(i.timestamp) }}
                   .card-body(v-html='convertMarkdown(i.article)')
-
+              .col-12
+                a.gradient-btn.secondary(href='#' @click.prevent='fetchArticle(articleList[articleList.length - 1].id)' v-if='!isArticleEnd' :disabled='isFetchingArticle') 載入更多
                     
             template(v-else) 目前尚無最新消息
             
@@ -112,10 +113,12 @@ html(lang='zh-Hant-TW')
             .col-12.col-lg-10
               .row.partners
                 each _ in partners
-                  .col-6.col-sm-6.col-xl-4
+                  .col-6.col-md-4
                     a.item(href=_.link :href=`getFacebookLink(${_.facebookId})` target='_blank')
                       img(src=_.img)
-                      h4=_.name
+                      .info
+                        h4=_.name
+                        small.school=_.schoolName
                       
       section#contact(ref='contactSection' v-cloak)
         .container

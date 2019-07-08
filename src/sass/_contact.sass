@@ -18,20 +18,10 @@
       color: #1e1e1e
       background-color: transparent
 
-
-    button.submit
-      background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)
-      color: rgba(#1e1e1e, .8)
-      +my(1rem)
-      &[disabled]
-        opacity: .5
-
-
   .success
     +flex-center
     flex-direction: row
     margin-top: 3rem
-    // border: solid #ddd 3px
     padding: 2rem
     border-radius: 15px
     img
@@ -42,13 +32,13 @@
       color: #777
 
   .contact-enter
-    transform: translateX(2rem)
+    transform: translateY(2rem)
     opacity: 0
   .contact-leave-to
-    transform: translateX(-2rem)
+    transform: translateY(-2rem)
     opacity: 0
   .contact-enter-active, .contact-leave-active
-    transition: all .4s
+    transition: all .4s 
   .contact-enter-to, .contact-leave
     transform: none
     opacity: 1

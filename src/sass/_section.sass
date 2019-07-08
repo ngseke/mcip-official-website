@@ -60,7 +60,8 @@ section
     flex-direction: row
     transition: transform .5s
     list-style: none
-    margin-bottom: .25rem
+    margin-bottom: 1.5rem
+    transform-origin: left center
     &:hover
       text-decoration: none
       transform: scale(1.05)
@@ -72,14 +73,18 @@ section
     img
       height: auto
       width: 3.5rem
-      margin-bottom: .75rem
       margin-right: .75rem
       border-radius: 10px
       transition: box-shadow .7s
-    h4
-      color: #333
-      font-size: 1rem
-      font-weight: 500
+    .info
+      .school
+        color: #333
+        opacity: .8
+      h4
+        color: #333
+        font-size: 1rem
+        font-weight: 500
+        margin: 0
 
 .qrcode
   width: 100%
@@ -113,7 +118,7 @@ section
 
 #news
   .card
-    margin-bottom: .5rem
+    margin-bottom: 1rem
     overflow: hidden
     transition: transform .5s, box-shadow .3s
     border: 0

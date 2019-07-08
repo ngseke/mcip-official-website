@@ -17,6 +17,14 @@
   &.line
     background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%)
     background-image: linear-gradient(-225deg, #20E2D7 0%, #F9FEA5 100%)
+  &.submit
+    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)
+    color: rgba(#1e1e1e, .8)
+    &:hover
+      color: rgba(#1e1e1e, .8)
+    +my(1rem)
   &.block
     display: block
     width: 100%
+  &[disabled]
+    opacity: .5
