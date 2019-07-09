@@ -25,6 +25,8 @@ const mcip = new Vue({
     currentArticle: null,
     isFetchingArticle: false,
     isArticleEnd: false,
+    // Navbar
+    isNavbarShow: false,
   },
   mounted () {
     this.initContactField()
@@ -36,7 +38,7 @@ const mcip = new Vue({
     setShrink () {
       window.addEventListener('scroll', (e) => {
         const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
-        this.isNavShrink = this.$refs.lineAppSection.getBoundingClientRect().top < 100
+        this.isNavShrink = this.$refs.lineAppSection.getBoundingClientRect().top < 300
 
         if (this.$refs.lineAppSection && this.$refs.contactSection) {
           this.isLineAppScreenshotShrink = this.$refs.lineAppSection.getBoundingClientRect().top > 200
