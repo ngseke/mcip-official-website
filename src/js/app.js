@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import { SweetModal } from 'sweet-modal-vue'
 
 const VueScrollTo = require('vue-scrollto')
