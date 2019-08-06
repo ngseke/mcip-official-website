@@ -92,6 +92,7 @@ const mcip = new Vue({
       this.isFetchingArticle = true
 
       const list = (await axios.get(url, { params: { after, limit } })).data
+        .sort((a, b) => b.timestamp - a.timestamp)
 
       if (!this.articleList) this.articleList = list
       else this.articleList = [...this.articleList, ...list]
