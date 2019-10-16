@@ -61,16 +61,21 @@ html(lang='zh-Hant-TW')
                 h3.big 即時賽況 你看得見
                 p.pl-1 選手掌握
                 比賽流程，觀眾 Follow 精彩演出不間斷
-      section(ref='paymentSection')
+      section#payment(ref='paymentSection')
         .container
           .row.justify-content-around 
             .col-12.col-md.col-lg-5.offset-lg-1
               .align-center-article
                 h3 自動化金流服務系統
                 p.pl-1 主動以 LINE 即時推播繳費狀態#[br]取代以往人工查核與撰寫訊息方式#[br]大幅降低時間成本與風險  
-            .col-12.col-md-6.col-lg-4
+            .col-12.col-md-6.col-lg-4(style={position: `relative`})
               .screenshot-area(style={ padding: `0 1.5rem` })
                 img.screenshot.unlimited(src='img/screenshot/payment-message.png' alt='金流繳費狀態訊通知' :class='{ shrink: isShrink.payment }')
+              .line-icon
+                img(src='img/screenshot/line-logo.svg' :class='{ shrink: isShrink.payment }')
+                .number: span(:class='{ shrink: isShrink.payment }') 1
+                  
+                  
       section(ref='backstageSection')
         .container
           .row.justify-content-around

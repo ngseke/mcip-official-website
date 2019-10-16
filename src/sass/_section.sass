@@ -31,6 +31,7 @@ section
   position: relative
   text-align: center
   perspective: 700px
+  z-index: 100
   img
     width: 100%
     height: auto
@@ -42,8 +43,8 @@ section
       transform: scale(.9)
     &.screenshot
       border-radius: 15px
-      transform: rotateX(0deg) rotateY(3deg)
-      transform-style: preserve-3d
+      // transform: rotateX(0deg) rotateY(3deg)
+      // transform-style: preserve-3d
       transition-duration: .5s
       &.shrink
         transform: scale(1) translateY(7rem)
@@ -227,3 +228,43 @@ section
       transform: rotate(-45deg)
   .sweet-content, .sweet-modal
     -webkit-overflow-scrolling: touch
+
+$line-icon-size: 7rem
+$line-icon-number-offset: .4rem
+#payment
+  .line-icon
+    user-select: none
+    position: absolute
+    top: 0
+    left: 0
+    +wh(100%)
+    +flex-center
+    img
+      +wh($line-icon-size)
+      transition: all .5s .2s
+      &.shrink
+        transform: scale(.8)
+        opacity: 0
+    .number
+      position: absolute
+      top: 0
+      left: 0
+      +wh(100%)
+      +flex-center
+      span
+        background-color: #fa3e38
+        color: white
+        +wh(2.5rem)
+        +flex-center
+        border-radius: 100rem
+        font-family: arial
+        font-size: 1.5rem
+        transform: translate($line-icon-size / 2 - $line-icon-number-offset, -($line-icon-size / 2 - $line-icon-number-offset))
+        transition: all .5s .4s
+        &.shrink
+          transform: translate($line-icon-size / 2 - $line-icon-number-offset, -($line-icon-size / 2 - $line-icon-number-offset)) scale(0)
+          opacity: 0
+
+  .screenshot-area
+    img
+      transition: all .5s 1.1s

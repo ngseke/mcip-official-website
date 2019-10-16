@@ -12,10 +12,10 @@ const mcip = new Vue({
     // 頁面動畫: 根據滾動位置判斷
     isShrink: {
       nav: false,
-      payment: false,
-      lineApp: false,
-      envelope: false,
-      backstage: false,
+      lineApp: true,
+      payment: true,
+      backstage: true,
+      envelope: true,
     },
     // 聯絡我們
     contact: {},
@@ -43,15 +43,17 @@ const mcip = new Vue({
         const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
         const refs = this.$refs
         const getElementTop = this.getElementTop
+        const isShrink = this.isShrink
 
         this.isShrink = {
-          ...this.isShrink,
+          ...isShrink,
           nav: getElementTop(refs.lineAppSection) < 300,
-          lineApp: getElementTop(refs.lineAppSection) > 200,
-          payment: getElementTop(refs.paymentSection) > 250,
-          backstage: getElementTop(refs.backstageSection) > 250,
-          envelope: getElementTop(refs.contactSection) > 300,
         }
+
+        if (isShrink.lineApp) this.isShrink.lineApp = getElementTop(refs.lineAppSection) > 200
+        if (isShrink.payment) this.isShrink.payment = getElementTop(refs.paymentSection) > 250
+        if (isShrink.backstage) this.isShrink.backstage = getElementTop(refs.backstageSection) > 250
+        if (isShrink.envelope) this.isShrink.envelope = getElementTop(refs.contactSection) > 300
 
         if (top > 250 && !this.isCountedTo) this.startCountTo()
       })
