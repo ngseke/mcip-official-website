@@ -29,7 +29,7 @@ const mcip = new Vue({
     isFetchingArticle: false,
     isArticleEnd: false,
     // Navbar
-    isNavbarShow: false,
+    isNavbarShow: false, 
   },
   mounted () {
     this.initContactField()

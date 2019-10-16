@@ -35,8 +35,8 @@ html(lang='zh-Hant-TW')
               
             .col-12.col-md-8.col-lg-6.order-1.order-md-2
               .align-center-article
-                h3.text-center.text-md-left 三分鐘快速完成報名 
-                p.text-center.text-md-left 無需下載 App，只需以 LINE 就能加入樂台計畫
+                h3.text-center.text-md-left 三分鐘快速完成報名
+                p.text-center.text-md-left 不需下載 App，用 LINE 就能加入樂台計畫
                 .mb-3.text-center.text-md-left
                   img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg' alt='樂台計畫 LINE App QRCode')
                   a.gradient-btn.line(target='_blank' href='./line/index.pug') 加入 LINE 官方帳號
@@ -48,26 +48,15 @@ html(lang='zh-Hant-TW')
                   .count-to.text-center.text-md-left
                     count-to.number(:end-val='18' :duration='3000' suffix='' :autoplay='false' ref='count-to-partner' v-cloak) 18 
                     span.label 所
-                    .info 合作院校
+                    .info 合作院校 
                     
-      //- section
-        .container
-          .row.justify-content-around
-            .col-12.col-md-3.col-lg-3.order-2.order-md-1
-              .screenshot-area
-                img.screenshot(src='img/screenshot/competition.png' alt='即時賽況畫面截圖')
-            .col-12.col-md-8.col-lg-6.order-1.order-md-2
-              .align-center-article
-                h3.big 即時賽況 你看得見
-                p.pl-1 選手掌握
-                比賽流程，觀眾 Follow 精彩演出不間斷
       section#payment(ref='paymentSection')
         .container
           .row.justify-content-around 
             .col-12.col-md.col-lg-5.offset-lg-1
               .align-center-article
                 h3 自動化金流服務系統
-                p.pl-1 主動以 LINE 即時推播繳費狀態#[br]取代以往人工查核與撰寫訊息方式#[br]大幅降低時間成本與風險  
+                p.pl-1 主動以 LINE 即時推播繳費狀態#[br]取代以往人工查核與撰寫訊息方式#[br]大幅降低時間成本與風險
             .col-12.col-md-6.col-lg-4(style={position: `relative`})
               .screenshot-area(style={ padding: `0 1.5rem` })
                 img.screenshot.unlimited(src='img/screenshot/payment-message.png' alt='金流繳費狀態訊通知' :class='{ shrink: isShrink.payment }')
@@ -79,13 +68,13 @@ html(lang='zh-Hant-TW')
       section(ref='backstageSection')
         .container
           .row.justify-content-around
-            .col-12.col-md-6.col-lg-4.order-2.order-md-1.offset-lg-1
-              .screenshot-area(style={ padding: `0 .5rem` })
-                img.mockup.unlimited(src='img/screenshot/backstage.png' alt='後台管理介面')
-            .col-12.col-md.col-lg.order-1.order-md-2.offset-lg-1
+            .col-12.col-md-6.col-lg-5.order-2.order-md-1 
+              .screenshot-area
+                img.mockup.unlimited(src='img/screenshot/backstage.png' alt='後台管理介面' :class='{ shrink: isShrink.backstage }' )
+            .col-12.col-md.col-lg.order-1.order-md-2.offset-lg-1 
               .align-center-article
-                h3 系統化管理後台  
-                p.pl-1 提供各大專院校系統化管理解決方案#[br]快速清楚瞭解賽事籌備狀況，即時處理參賽者資訊#[br]後台發佈即連動 App 呈現，讓全國賽事齊聚一堂              
+                h3 為社團而生的管理後台
+                p.pl-1 提供各大專院校系統化管理解決方案#[br]快速掌握賽事籌備狀況，即時處理報名資料#[br]後台發佈即連動 App 呈現，讓全國賽事齊聚一堂              
                 
       section#news(v-cloak)
         .container

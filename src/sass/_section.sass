@@ -231,7 +231,9 @@ section
 
 $line-icon-size: 7rem
 $line-icon-number-offset: .4rem
+
 #payment
+  // LINE 圖標區域
   .line-icon
     user-select: none
     position: absolute
@@ -239,12 +241,14 @@ $line-icon-number-offset: .4rem
     left: 0
     +wh(100%)
     +flex-center
+    // 圖標
     img
       +wh($line-icon-size)
       transition: all .5s .2s
       &.shrink
         transform: scale(.8)
         opacity: 0
+    // 通知數字
     .number
       position: absolute
       top: 0
@@ -259,12 +263,14 @@ $line-icon-number-offset: .4rem
         border-radius: 100rem
         font-family: arial
         font-size: 1.5rem
-        transform: translate($line-icon-size / 2 - $line-icon-number-offset, -($line-icon-size / 2 - $line-icon-number-offset))
+        transform-origin: center center
+        transform: translate($line-icon-size / 2 - $line-icon-number-offset, -($line-icon-size / 2 - $line-icon-number-offset)) scale(1)
+
         transition: all .5s .4s
         &.shrink
           transform: translate($line-icon-size / 2 - $line-icon-number-offset, -($line-icon-size / 2 - $line-icon-number-offset)) scale(0)
           opacity: 0
-
+  // 聊天訊息區域
   .screenshot-area
     img
-      transition: all .5s 1.1s
+      transition: all .7s 1.2s
