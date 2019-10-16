@@ -31,21 +31,22 @@ html(lang='zh-Hant-TW')
           .row.justify-content-around
             .col-12.col-md-3.col-lg-3.order-2.order-md-1
               .screenshot-area
-                img.mockup(src='img/screenshot/line-app-mockup.png' alt='Line App 畫面截圖' :class='{ shrink: isLineAppScreenshotShrink }')
+                img.mockup(src='img/screenshot/line-app-mockup.png' alt='Line App 畫面截圖' :class='{ shrink: isShrink.lineApp }')
               
             .col-12.col-md-8.col-lg-6.order-1.order-md-2
               .align-center-article
-                h3.text-center.text-md-left 三分鐘完成報名，#[br]現在加入樂台計畫！
+                h3.text-center.text-md-left 三分鐘快速完成報名 
+                p.text-center.text-md-left 無需下載 App，只需以 LINE 就能加入樂台計畫
                 .mb-3.text-center.text-md-left
-                  img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg' alt='樂台計畫 Line App QRCode')
-                  a.gradient-btn.line(target='_blank' href='./line/index.pug') 加入 Line 官方帳號
+                  img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg' alt='樂台計畫 LINE App QRCode')
+                  a.gradient-btn.line(target='_blank' href='./line/index.pug') 加入 LINE 官方帳號
                 
                 .d-flex.justify-content-center.justify-content-md-start(v-cloak)
                   .count-to.text-center.text-md-left
-                    count-to.number(:end-val='2200' :duration='4000' suffix='+' :autoplay='false' ref='count-to-user')
+                    count-to.number(:end-val='2200' :duration='3000' suffix='+' :autoplay='false' ref='count-to-user' v-cloak) 2200+
                     .info 樂台計畫總用戶數
                   .count-to.text-center.text-md-left
-                    count-to.number(:end-val='14' :duration='4000' suffix='' :autoplay='false' ref='count-to-partner')
+                    count-to.number(:end-val='18' :duration='3000' suffix='' :autoplay='false' ref='count-to-partner' v-cloak) 18 
                     span.label 所
                     .info 合作院校
                     
@@ -58,9 +59,30 @@ html(lang='zh-Hant-TW')
             .col-12.col-md-8.col-lg-6.order-1.order-md-2
               .align-center-article
                 h3.big 即時賽況 你看得見
-                p.pl-1 選手掌握比賽流程，觀眾 Follow 精彩演出不間斷
+                p.pl-1 選手掌握
+                比賽流程，觀眾 Follow 精彩演出不間斷
+      section(ref='paymentSection')
+        .container
+          .row.justify-content-around 
+            .col-12.col-md.col-lg-5.offset-lg-1
+              .align-center-article
+                h3 自動化金流服務系統
+                p.pl-1 主動以 LINE 即時推播繳費狀態#[br]取代以往人工查核與撰寫訊息方式#[br]大幅降低時間成本與風險  
+            .col-12.col-md-6.col-lg-4
+              .screenshot-area(style={ padding: `0 1.5rem` })
+                img.screenshot.unlimited(src='img/screenshot/payment-message.png' alt='金流繳費狀態訊通知' :class='{ shrink: isShrink.payment }')
+      section(ref='backstageSection')
+        .container
+          .row.justify-content-around
+            .col-12.col-md-6.col-lg-4.order-2.order-md-1.offset-lg-1
+              .screenshot-area(style={ padding: `0 .5rem` })
+                img.mockup.unlimited(src='img/screenshot/backstage.png' alt='後台管理介面')
+            .col-12.col-md.col-lg.order-1.order-md-2.offset-lg-1
+              .align-center-article
+                h3 系統化管理後台  
+                p.pl-1 提供各大專院校系統化管理解決方案#[br]快速清楚瞭解賽事籌備狀況，即時處理參賽者資訊#[br]後台發佈即連動 App 呈現，讓全國賽事齊聚一堂              
                 
-      section#news
+      section#news(v-cloak)
         .container
           .row 
             .col-12.col-lg-12.mb-3 
@@ -109,8 +131,9 @@ html(lang='zh-Hant-TW')
         .container
           .row.justify-content-center
             .col-12.mb-3
-              h3 合作夥伴
+              h3 合作夥伴 
             .col-12.col-lg-10
+              //- p 你熟悉的音樂賽事全在這
               .row.partners
                 each _ in partners
                   .col-6.col-md-4
@@ -136,7 +159,7 @@ html(lang='zh-Hant-TW')
                 .success(v-else-if='contactStatus === 2') 
                   img(src='img/check.svg')
                   span 謝謝你的來信，我們將會盡快與您聯繫!
-            .col-3.d-none.d-lg-flex: .envelope(:class='{ shrink: isEnvelopeShrink }')
+            .col-3.d-none.d-lg-flex: .envelope(:class='{ shrink: isShrink.envelope }')
 
     include pug/include/footer.pug
     include pug/include/script.pug

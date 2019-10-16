@@ -4,11 +4,11 @@
 $shrink-bg-color: rgba(#1e1e1e, 1)
 
 #nav
-  +py(1rem)
-  background: rgba(white, 0)
-  transition: all .3s
+  +py(1.25rem)
+  background-color: rgba(white, 0)
+  transition: background-color .3s, padding .3s
   .navbar-brand
-    transition: all .2s
+    transition: opacity .2s
     opacity: 0
     img
       +wh(2rem)
@@ -16,8 +16,8 @@ $shrink-bg-color: rgba(#1e1e1e, 1)
     span
       font-weight: 400
   &.shrink
-    background: $shrink-bg-color
-    backdrop-filter: blur(20px)
+    +py(.5rem)
+    background-color: $shrink-bg-color
     .navbar-brand
       opacity: 1
       transform: none
@@ -39,9 +39,7 @@ $shrink-bg-color: rgba(#1e1e1e, 1)
     cursor: pointer
 
 @media (max-width: 767.98px)
-  #nav
-    &.shrink
-      background: $shrink-bg-color
+  #nav 
     .divider
       height: 0
       width: 100%
@@ -56,7 +54,7 @@ $shrink-bg-color: rgba(#1e1e1e, 1)
       height: 100%
       min-width: 18rem
       padding: .5rem
-      overflow: scroll
+      overflow: hidden
       ul.navbar-nav
         transition: all .4s
         padding-top: 2rem

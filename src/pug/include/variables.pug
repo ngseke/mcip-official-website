@@ -1,19 +1,150 @@
 - 
   const partners = [
-    { name: `北大北韻獎`, img: `https://firebasestorage.googleapis.com/v0/b/mc-integration-platform.appspot.com/o/coverPhoto%2FbestWin%2F20%2F1549817399690?alt=media&token=76bc730c-b4f9-474b-899c-951ea8358366`, link: `https://www.facebook.com/ntpubestwin/`, facebookId: 208416899869, id: `bestWin`, schoolName: `國立臺北大學` },
-    { name: `東吳金弦獎`, img: `https://firebasestorage.googleapis.com/v0/b/mc-integration-platform.appspot.com/o/coverPhoto%2FSCUGoldenString%2F9%2F1551184185302?alt=media&token=7413315a-bc0b-4891-8b2c-3c6703997537`, facebookId: 1413508968903343, id: `SCUGoldenString`, schoolName: `東吳大學` },
-    { name: `大同銅釦獎`, img: `https://imgur.com/jYjqvVw.jpg`, link: `https://www.facebook.com/ttuchord/`, facebookId: 376229202395377, id: `ttuchord`, schoolName: `大同大學` },
-    { name: `台科金絃獎`, img: `https://i.imgur.com/Z2CfBwf.jpg`, link: `https://www.facebook.com/NTUSTGoldenString/`, facebookId: 271032083070841, id: `NTUSTGoldenString`, schoolName: `國立臺灣科技大學` },
-    { name: `銘傳銘音獎`, img: `https://i.imgur.com/SLBLKpx.jpg`, link: `https://www.facebook.com/mcuguitarclub12/`, facebookId: 764411143636154, id: `mcuguitarclub`, schoolName: `銘傳大學` },
-    { name: `中臺科大笑盃`, img: `https://i.imgur.com/ks2Ojw1.jpg`, link: `https://www.facebook.com/SGmatch/`, facebookId: 1406435702947898, id: `SGmatch`, schoolName: `中臺科技大學` },
-    { name: `北醫金弦獎`, img: `https://i.imgur.com/253mRH0.jpg`, link: `https://www.facebook.com/tmuguitar/`, facebookId: 783557005039402, id: `tmuguitar`, schoolName: `臺北醫學大學` },
-    { name: `亞東亞韻獎`, img: `https://i.imgur.com/0vgSGn1.jpg`, link: `https://zh-tw.facebook.com/OITMelodyAward/`, facebookId: 1374627745927359, id: `OITMelodyAward`, schoolName: `亞東技術學院` },
-    { name: `台大音韻獎`, img: `https://i.imgur.com/5ALMJss.jpg`, link: `https://www.facebook.com/ntuinyunaward/`, facebookId: 128866147290155, id: `ntuinyunaward`, schoolName: `國立臺灣大學` },
-    { name: `高科弦音盃`, img: `https://i.imgur.com/d17RcRZ.jpg`, link: `https://www.facebook.com/MyStyleGuitar/`, facebookId: 619401048152620, id: `MyStyleGuitar`, schoolName: `國立高雄科技大學` },
-    { name: `海洋之星`, img: `https://i.imgur.com/0A8Syi6.jpg`, link: `https://www.facebook.com/ntougcseastar/`, facebookId: 1563889260569566, id: `ntougcseastar`, schoolName: `國立臺灣海洋大學` },
-    { name: `文化華韻獎 `, img: `https://i.imgur.com/vx51QyF.jpg`, link: `https://www.facebook.com/pccuhwayun/`, facebookId: 161871844197408, id: `pccuhwayun`, schoolName: `中國文化大學` },
-    { name: `中正飛聆盃 `, img: `https://i.imgur.com/eTWpk00.jpg`, link: `https://www.facebook.com/CCUfeelingsguitar/`, facebookId: 749444821734494, id: `CCUfeelingsguitar`, schoolName: `國立中正大學` },
-    { name: `白沙中韻獎`, img: `https://i.imgur.com/SvFyhdL.jpg`, link: `http://tiny.cc/p6gb6y`, facebookId: 762347690639820, id: null, schoolName: `國立彰化師範大學` },
+    {
+      name: `北大北韻獎`,
+      img: `https://i.imgur.com/YYlEItg.jpg`,
+      link: `https://www.facebook.com/ntpubestwin/`,
+      facebookId: 208416899869,
+      id: `bestWin`,
+      schoolName: `國立臺北大學`
+    },
+    {
+      name: `東吳金弦獎`,
+      img: `https://i.imgur.com/7FPFSc3.jpg`,
+      facebookId: 1413508968903343,
+      id: `SCUGoldenString`,
+      schoolName: `東吳大學`
+    },
+    {
+      name: `大同銅釦獎`,
+      img: `https://imgur.com/jYjqvVw.jpg`,
+      link: `https://www.facebook.com/ttuchord/`,
+      facebookId: 376229202395377,
+      id: `ttuchord`,
+      schoolName: `大同大學`
+    },
+    {
+      name: `台科金絃獎`,
+      img: `https://i.imgur.com/Z2CfBwf.jpg`,
+      link: `https://www.facebook.com/NTUSTGoldenString/`,
+      facebookId: 271032083070841,
+      id: `NTUSTGoldenString`,
+      schoolName: `國立臺灣科技大學`
+    },
+    {
+      name: `銘傳銘音獎`,
+      img: `https://i.imgur.com/SLBLKpx.jpg`,
+      link: `https://www.facebook.com/mcuguitarclub12/`,
+      facebookId: 764411143636154,
+      id: `mcuguitarclub`,
+      schoolName: `銘傳大學`
+    },
+    {
+      name: `中臺科大笑盃`,
+      img: `https://i.imgur.com/ks2Ojw1.jpg`,
+      link: `https://www.facebook.com/SGmatch/`,
+      facebookId: 1406435702947898,
+      id: `SGmatch`,
+      schoolName: `中臺科技大學`
+    },
+    {
+      name: `北醫金弦獎`,
+      img: `https://i.imgur.com/253mRH0.jpg`,
+      link: `https://www.facebook.com/tmuguitar/`,
+      facebookId: 783557005039402,
+      id: `tmuguitar`,
+      schoolName: `臺北醫學大學`
+    },
+    {
+      name: `亞東亞韻獎`,
+      img: `https://i.imgur.com/0vgSGn1.jpg`,
+      link: `https://zh-tw.facebook.com/OITMelodyAward/`,
+      facebookId: 1374627745927359,
+      id: `OITMelodyAward`,
+      schoolName: `亞東技術學院`
+    },
+    {
+      name: `台大音韻獎`,
+      img: `https://i.imgur.com/5ALMJss.jpg`,
+      link: `https://www.facebook.com/ntuinyunaward/`,
+      facebookId: 128866147290155,
+      id: `ntuinyunaward`,
+      schoolName: `國立臺灣大學`
+    },
+    {
+      name: `高科弦音盃`,
+      img: `https://i.imgur.com/d17RcRZ.jpg`,
+      link: `https://www.facebook.com/MyStyleGuitar/`,
+      facebookId: 619401048152620,
+      id: `MyStyleGuitar`,
+      schoolName: `國立高雄科技大學`
+    },
+    {
+      name: `海洋之星`,
+      img: `https://i.imgur.com/0A8Syi6.jpg`,
+      link: `https://www.facebook.com/ntougcseastar/`,
+      facebookId: 1563889260569566,
+      id: `ntougcseastar`,
+      schoolName: `國立臺灣海洋大學`
+    },
+    {
+      name: `文化華韻獎 `,
+      img: `https://i.imgur.com/vx51QyF.jpg`,
+      link: `https://www.facebook.com/pccuhwayun/`,
+      facebookId: 161871844197408,
+      id: `pccuhwayun`,
+      schoolName: `中國文化大學`
+    },
+    {
+      name: `中正飛聆盃 `,
+      img: `https://i.imgur.com/eTWpk00.jpg`,
+      link: `https://www.facebook.com/CCUfeelingsguitar/`,
+      facebookId: 749444821734494,
+      id: `CCUfeelingsguitar`,
+      schoolName: `國立中正大學`
+    },
+    {
+      name: `白沙中韻獎`,
+      img: `https://i.imgur.com/SvFyhdL.jpg`,
+      link: `http://tiny.cc/p6gb6y`,
+      facebookId: 762347690639820,
+      id: null,
+      schoolName: `國立彰化師範大學`
+    },
+    {
+      name: `流音之星`,
+      img: `https://i.imgur.com/7wXnouu.jpg`,
+      link: `https://www.facebook.com/popmusicstar`,
+      facebookId: 298854316959187,
+      id: `popmusicstar`,
+      schoolName: null
+    },
+    {
+      name: `輔大青韻獎`,
+      img: `https://i.imgur.com/hZsCaUv.jpg`,
+      link: `https://www.facebook.com/fjuchinyun/`,
+      facebookId: 177780142281619,
+      id: `fjuchinyun`,
+      schoolName: `輔仁大學`
+    },
+    {
+      name: `北科赤弦獎`,
+      img: `https://i.imgur.com/rpIqdo2.jpg`,
+      link: `https://www.facebook.com/NTUT.TsaiYin.RedString/`,
+      facebookId: 187199218026949,
+      id: `ntutRedString`,
+      schoolName: `國立臺北科技大學`
+    },
+    {
+      name: `南方之星`,
+      img: `https://i.imgur.com/1ynzuEE.jpg`,
+      link: `https://www.facebook.com/STUSTSSFG/`,
+      facebookId: 377295625743556,
+      id: `STUSTSSFG`,
+      schoolName: `南臺科技大學`
+    },
   ]
 
   const description = `立刻加入樂台計畫 Line App，輕鬆快速報名各個大專院校音樂比賽，亦可關注即時賽況、查看第一手賽事資訊與參加抽獎活動，精彩訊息不漏接！`
+
+  const lazyImgSrc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='

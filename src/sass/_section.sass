@@ -7,6 +7,7 @@
 
 section
   background-color: white
+  overflow: hidden
   +py(4rem)
   &.secondary
     background-color: rgba(#eee, .4)
@@ -20,29 +21,36 @@ section
 
   p
     margin-bottom: 2rem
+    letter-spacing: .5px
 
   @media (max-width: 768px)
     h3
-      font-size: 2.5rem
+      font-size: 2.2rem
 
 .screenshot-area
   position: relative
   text-align: center
   perspective: 700px
   img
-    &.mockup, &.screenshot
-      transition: all .7s
-      max-width: 15rem
-      width: 100%
-      height: auto
-      &.shrink
-        transform: scale(.9)
+    width: 100%
+    height: auto
+    transition: all .7s
+    max-width: 15rem
+    width: 100%
+    height: auto
+    &.shrink
+      transform: scale(.9)
     &.screenshot
       border-radius: 15px
-      box-shadow: $big-btn-shadow
-      transform: rotateX(0deg) rotateY(10deg)
+      transform: rotateX(0deg) rotateY(3deg)
       transform-style: preserve-3d
+      transition-duration: .5s
+      &.shrink
+        transform: scale(1) translateY(7rem)
+        opacity: 0
 
+    &.unlimited
+      max-width: none
 
   img.avatar
     +wh(7rem)
@@ -58,15 +66,12 @@ section
     display: flex
     align-items: center
     flex-direction: row
-    transition: transform .5s
+    transition: opacity .5s
     list-style: none
     margin-bottom: 1.5rem
     transform-origin: left center
     &:hover
-      text-decoration: none
-      transform: scale(1.05)
-      img
-        box-shadow: $big-btn-shadow
+      opacity: .7
     &:active
       transform: scale(.98)
       color: red

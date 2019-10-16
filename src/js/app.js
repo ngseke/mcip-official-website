@@ -10,9 +10,13 @@ const mcip = new Vue({
   el: `#app`,
   data: {
     // 頁面動畫: 根據滾動位置判斷
-    isNavShrink: false,
-    isLineAppScreenshotShrink: false,
-    isEnvelopeShrink: false,
+    isShrink: {
+      nav: false,
+      payment: false,
+      lineApp: false,
+      envelope: false,
+      backstage: false,
+    },
     // 聯絡我們
     contact: {},
     contactStatus: 0,   // 0: 預設, 1: 傳送中, 2: 成功
@@ -37,15 +41,23 @@ const mcip = new Vue({
     setShrink () {
       window.addEventListener('scroll', (e) => {
         const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
-        this.isNavShrink = this.$refs.lineAppSection.getBoundingClientRect().top < 300
+        const refs = this.$refs
+        const getElementTop = this.getElementTop
 
-        if (this.$refs.lineAppSection && this.$refs.contactSection) {
-          this.isLineAppScreenshotShrink = this.$refs.lineAppSection.getBoundingClientRect().top > 200
-          this.isEnvelopeShrink = this.$refs.contactSection.getBoundingClientRect().top > 300
+        this.isShrink = {
+          ...this.isShrink,
+          nav: getElementTop(refs.lineAppSection) < 300,
+          lineApp: getElementTop(refs.lineAppSection) > 200,
+          payment: getElementTop(refs.paymentSection) > 250,
+          backstage: getElementTop(refs.backstageSection) > 250,
+          envelope: getElementTop(refs.contactSection) > 300,
         }
 
         if (top > 250 && !this.isCountedTo) this.startCountTo()
       })
+    },
+    getElementTop (_) {
+      return _ ? _.getBoundingClientRect().top : null
     },
     // 根據裝置取得不同的 Facebook 粉專連結(為了使用預設內置 app 開啟)
     getFacebookLink (id) {
