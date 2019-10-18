@@ -43,10 +43,10 @@ html(lang='zh-Hant-TW')
                 
                 .d-flex.justify-content-center.justify-content-md-start(v-cloak)
                   .count-to.text-center.text-md-left
-                    count-to.number(:end-val='2200' :duration='3000' suffix='+' :autoplay='false' ref='count-to-user' v-cloak) 2200+
+                    count-to.number(:end-val='3000' :duration='3000' suffix='+' :autoplay='false' ref='count-to-user' v-cloak) 3000+
                     .info 樂台計畫總用戶數
                   .count-to.text-center.text-md-left
-                    count-to.number(:end-val='18' :duration='3000' suffix='' :autoplay='false' ref='count-to-partner' v-cloak) 18 
+                    count-to.number(:end-val='19' :duration='3000' suffix='' :autoplay='false' ref='count-to-partner' v-cloak) 19
                     span.label 所
                     .info 合作院校 
                     
@@ -83,6 +83,7 @@ html(lang='zh-Hant-TW')
               h3 最新消息
               
             template(v-if='!articleList')
+              //- 插入三個偽 loader
               +article-card-loader 
               - let i = 0
               while ++i < 3

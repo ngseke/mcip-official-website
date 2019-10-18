@@ -29,7 +29,7 @@ const mcip = new Vue({
     isFetchingArticle: false,
     isArticleEnd: false,
     // Navbar
-    isNavbarShow: false, 
+    isNavbarShow: false,
   },
   mounted () {
     this.initContactField()
@@ -37,7 +37,7 @@ const mcip = new Vue({
     this.fetchArticle()
   },
   methods: {
-    // 根據滾動位置設定是否已滾動到該元素位置
+    // 根據目前捲軸位置，決定是否播放動畫
     setShrink () {
       window.addEventListener('scroll', (e) => {
         const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
@@ -55,7 +55,7 @@ const mcip = new Vue({
         if (isShrink.backstage) this.isShrink.backstage = getElementTop(refs.backstageSection) > 250
         if (isShrink.envelope) this.isShrink.envelope = getElementTop(refs.contactSection) > 300
 
-        if (top > 250 && !this.isCountedTo) this.startCountTo()
+        if (top > 200 && !this.isCountedTo) this.startCountTo()
       })
     },
     getElementTop (_) {
