@@ -22,6 +22,7 @@ section
   p
     margin-bottom: 2rem
     letter-spacing: .5px
+    line-height: 1.75rem
 
   @media (max-width: 768px)
     h3
@@ -64,33 +65,34 @@ section
 
 .partners
   .item
-    display: flex
+    display: inline-flex
     align-items: center
     flex-direction: row
-    transition: opacity .5s
+    transition: all .3s
     list-style: none
-    margin-bottom: 1.5rem
-    transform-origin: left center
+    margin-bottom: 1.25rem
+    transform-origin: center center
     &:hover
       opacity: .7
     &:active
-      transform: scale(.98)
-      color: red
+      transform: scale(.95)
     img
       height: auto
-      width: 3.5rem
+      width: 3rem
       margin-right: .75rem
       border-radius: 10px
       transition: box-shadow .7s
     .info
-      .school
-        color: #333
-        opacity: .8
       h4
         color: #333
         font-size: 1rem
         font-weight: 500
         margin: 0
+        letter-spacing: .5px
+      .school
+        color: #333
+        opacity: .8
+
 
 .qrcode
   width: 100%

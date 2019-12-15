@@ -43,10 +43,10 @@ html(lang='zh-Hant-TW')
                 
                 .d-flex.justify-content-center.justify-content-md-start(v-cloak)
                   .count-to.text-center.text-md-left
-                    count-to.number(:end-val='3000' :duration='3000' suffix='+' :autoplay='false' ref='count-to-user' v-cloak) 3000+
+                    count-to.number(:end-val='3500' :duration='3000' suffix='+' :autoplay='false' ref='count-to-user' v-cloak) 3500+
                     .info 樂台計畫總用戶數
                   .count-to.text-center.text-md-left
-                    count-to.number(:end-val='19' :duration='3000' suffix='' :autoplay='false' ref='count-to-partner' v-cloak) 19
+                    count-to.number(:end-val='23' :duration='3000' suffix='' :autoplay='false' ref='count-to-partner' v-cloak) 23
                     span.label 所
                     .info 合作院校 
                     
@@ -127,11 +127,11 @@ html(lang='zh-Hant-TW')
           .row.justify-content-center
             .col-12.mb-3
               h3 合作夥伴 
-            .col-12.col-lg-10
+            .col-12.col-lg-12
               //- p 你熟悉的音樂賽事全在這
               .row.partners
                 each _ in partners
-                  .col-6.col-md-4
+                  .col-6.col-md-4.col-lg-3
                     a.item(href=_.link :href=`getFacebookLink(${_.facebookId})` target='_blank')
                       img(src=_.img)
                       .info

@@ -55,7 +55,7 @@ const mcip = new Vue({
         if (isShrink.backstage) this.isShrink.backstage = getElementTop(refs.backstageSection) > 250
         if (isShrink.envelope) this.isShrink.envelope = getElementTop(refs.contactSection) > 300
 
-        if (top > 200 && !this.isCountedTo) this.startCountTo()
+        if (top > 100 && !this.isCountedTo) this.startCountTo()
       })
     },
     getElementTop (_) {
@@ -123,12 +123,12 @@ const mcip = new Vue({
       return marked(_)
     },
     // 彈出文章視窗
-    showArticleModal (index) {
+    async showArticleModal (index) {
       this.currentArticle = null
-      this.$nextTick(() => {
-        this.currentArticle = { ...this.articleList[index] }
-        this.$nextTick(() => this.$refs[`article-modal`].open())
-      })
+      await this.$nextTick()
+      this.currentArticle = { ...this.articleList[index] }
+      await this.$nextTick()
+      this.$refs[`article-modal`].open()
     },
     // 關閉文章視窗
     hideArticleModal () {
