@@ -1,160 +1,145 @@
-doctype html
-html(lang='zh-Hant-TW')
-  head
-    include pug/include/template.pug
-    include pug/include/variables.pug
-    include pug/include/ga.pug
-    meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible' content='IE=edge')
-    meta(name='viewport' content='width=device-width,initial-scale=1.0')
-    meta(property='og:image' content='img/favicon.png')
-    meta(property='og:title' content='樂台計畫 - 大專院校民謠音樂比賽平台')
-    meta(property='og:type' content='website')
-    meta(property='og:description' content=description)
-    meta(name='description' content=description)
-    meta(name='author' content='Huang Xingqiao')
-    title 樂台計畫 - 大專院校民謠音樂比賽平台
-    include pug/include/style.pug
-  body
-    #app
-      include pug/include/nav.pug
-      header
-        .logo.horizontal.no-animation
-          .box
-          h1
-            each _, i in `樂台計畫`
-              span(style=`animation-delay: ${i * .08 + .65}s`)=_
-        h2 大專院校民謠音樂比賽平台
-        
-      section#line-app.line-app(ref='lineAppSection')
-        .container
-          .row.justify-content-around
-            .col-12.col-md-3.col-lg-3.order-2.order-md-1
-              .screenshot-area
-                img.mockup(src='img/screenshot/line-app-mockup.png' alt='Line App 畫面截圖' :class='{ shrink: isShrink.lineApp }')
-              
-            .col-12.col-md-8.col-lg-6.order-1.order-md-2
-              .align-center-article
-                h3.text-center.text-md-left 三分鐘快速完成報名
-                p.text-center.text-md-left 不需下載 App，用 LINE 就能加入樂台計畫
-                .mb-3.text-center.text-md-left
-                  img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg' alt='樂台計畫 LINE App QRCode')
-                  a.gradient-btn.line(target='_blank' href='./line/index.pug') 加入 LINE 官方帳號
-                
-                .d-flex.justify-content-center.justify-content-md-start(v-cloak)
-                  .count-to.text-center.text-md-left
-                    count-to.number(:end-val='3500' :duration='3000' suffix='+' :autoplay='false' ref='count-to-user' v-cloak) 3500+
-                    .info 樂台計畫總用戶數
-                  .count-to.text-center.text-md-left
-                    count-to.number(:end-val='23' :duration='3000' suffix='' :autoplay='false' ref='count-to-partner' v-cloak) 23
-                    span.label 所
-                    .info 合作院校 
-                    
-      section#payment(ref='paymentSection')
-        .container
-          .row.justify-content-around 
-            .col-12.col-md.col-lg-5.offset-lg-1
-              .align-center-article
-                h3 自動化金流服務系統
-                p.pl-1 主動以 LINE 即時推播繳費狀態#[br]取代以往人工查核與撰寫訊息方式#[br]大幅降低時間成本與風險
-            .col-12.col-md-6.col-lg-4(style={position: `relative`})
-              .screenshot-area(style={ padding: `0 1.5rem` })
-                img.screenshot.unlimited(src='img/screenshot/payment-message.png' alt='金流繳費狀態訊通知' :class='{ shrink: isShrink.payment }')
-              .line-icon
-                img(src='img/screenshot/line-logo.svg' :class='{ shrink: isShrink.payment }')
-                .number: span(:class='{ shrink: isShrink.payment }') 1
-                  
-                  
-      section(ref='backstageSection')
-        .container
-          .row.justify-content-around
-            .col-12.col-md-6.col-lg-5.order-2.order-md-1 
-              .screenshot-area
-                img.mockup.unlimited(src='img/screenshot/backstage.png' alt='後台管理介面' :class='{ shrink: isShrink.backstage }' )
-            .col-12.col-md.col-lg.order-1.order-md-2.offset-lg-1 
-              .align-center-article
-                h3 為賽事而生的管理後台 
-                p.pl-1 樂台計畫提供各大專院校系統化管理解決方案#[br]快速掌握賽事籌備狀況，即時處理報名資料#[br]同步技術解決各單位資訊不對稱問題                  
-                
-      section#news(v-cloak)
-        .container
-          .row 
-            .col-12.col-lg-12.mb-3 
-              h3 最新消息
-              
-            template(v-if='!articleList')
-              //- 插入三個偽 loader
-              +article-card-loader 
-              - let i = 0
-              while ++i < 3
-                +article-card-loader 
-                
-            template(v-else-if='articleList.length > 0' v-cloak)
-              .col-12.col-md-6.col-lg-4(v-for='(i, index) in articleList')
-                .card(@click='showArticleModal(index)')
-                  img.card-img-top(:src='i.image')
-                  .card-img-overlay 
-                    .author
-                      img.avatar(src='https://i.imgur.com/INFIh4d.png')
-                      .info
-                        .name {{ i.author }}
-                        .date {{ convertTime(i.timestamp) }}
-                  .card-body(v-html='convertMarkdown(i.article)')
-              .col-12
-                a.gradient-btn.secondary(href='#' @click.prevent='fetchArticle(articleList[articleList.length - 1].id)' v-if='!isArticleEnd' :disabled='isFetchingArticle') 載入更多 »
-                    
-            template(v-else) 目前尚無最新消息
+extends pug/layout/layout.pug
+
+block content
+  header
+    .logo.horizontal.no-animation
+      .box
+      h1
+        each _, i in `樂台計畫`
+          span(style=`animation-delay: ${i * .08 + .65}s`)=_
+    h2 大專院校民謠音樂比賽平台
+    
+  section#line-app.line-app(ref='lineAppSection')
+    .container
+      .row.justify-content-around
+        .col-12.col-md-3.col-lg-3.order-2.order-md-1
+          .screenshot-area
+            img.mockup(src='img/screenshot/line-app-mockup.png' alt='Line App 畫面截圖' :class='{ shrink: isShrink.lineApp }')
+          
+        .col-12.col-md-8.col-lg-6.order-1.order-md-2
+          .align-center-article
+            h3.text-center.text-md-left 三分鐘快速完成報名
+            p.text-center.text-md-left 不需下載 App，用 LINE 就能加入樂台計畫
+            .mb-3.text-center.text-md-left
+              img.qrcode.d-none.d-md-inline-block.mr-3(src='img/line-app-qrcode.svg' alt='樂台計畫 LINE App QRCode')
+              a.gradient-btn.line(target='_blank' href='./line/index.pug') 加入 LINE 官方帳號
             
-        sweet-modal(ref='article-modal' width='100%' v-if='currentArticle' v-cloak) 
-          .container
-            .row.justify-content-center
-              .col-12.col-lg-8
+            .d-flex.justify-content-center.justify-content-md-start(v-cloak)
+              .count-to.text-center.text-md-left
+                count-to.number(:end-val='3500' :duration='3000' suffix='+' :autoplay='false' ref='count-to-user' v-cloak) 3500+
+                .info 樂台計畫總用戶數
+              .count-to.text-center.text-md-left
+                count-to.number(:end-val='23' :duration='3000' suffix='' :autoplay='false' ref='count-to-partner' v-cloak) 23
+                span.label 所
+                .info 合作院校
+                
+  section#payment(ref='paymentSection')
+    .container
+      .row.justify-content-around
+        .col-12.col-md.col-lg-5.offset-lg-1
+          .align-center-article
+            h3 自動化金流服務系統
+            p.pl-1 主動以 LINE 即時推播繳費狀態#[br]取代以往人工查核與撰寫訊息方式#[br]大幅降低時間成本與風險
+        .col-12.col-md-6.col-lg-4(style={position: `relative`})
+          .screenshot-area(style={ padding: `0 1.5rem` })
+            img.screenshot.unlimited(src='img/screenshot/payment-message.png' alt='金流繳費狀態訊通知' :class='{ shrink: isShrink.payment }')
+          .line-icon
+            img(src='img/screenshot/line-logo.svg' :class='{ shrink: isShrink.payment }')
+            .number: span(:class='{ shrink: isShrink.payment }') 1
+              
+              
+  section(ref='backstageSection')
+    .container
+      .row.justify-content-around
+        .col-12.col-md-6.col-lg-5.order-2.order-md-1 
+          .screenshot-area
+            img.mockup.unlimited(src='img/screenshot/backstage.png' alt='後台管理介面' :class='{ shrink: isShrink.backstage }' )
+        .col-12.col-md.col-lg.order-1.order-md-2.offset-lg-1 
+          .align-center-article
+            h3 為賽事而生的管理後台 
+            p.pl-1 樂台計畫提供各大專院校系統化管理解決方案#[br]快速掌握賽事籌備狀況，即時處理報名資料#[br]同步技術解決各單位資訊不對稱問題
+            
+  section#news(v-cloak)
+    .container
+      .row 
+        .col-12.col-lg-12.mb-3 
+          h3 最新消息
+          
+        template(v-if='!articleList')
+          //- 插入三個偽 loader
+          +article-card-loader 
+          - let i = 0
+          while ++i < 3
+            +article-card-loader 
+            
+        template(v-else-if='articleList.length > 0' v-cloak)
+          .col-12.col-md-6.col-lg-4(v-for='(i, index) in articleList')
+            .card(@click='showArticleModal(index)')
+              img.card-img-top(:src='i.image')
+              .card-img-overlay 
                 .author
                   img.avatar(src='https://i.imgur.com/INFIh4d.png')
                   .info
-                    .name {{ currentArticle.author }}
-                    .date {{ convertTime(currentArticle.timestamp) }}
-              .col-12.col-lg-8
-                .sweet-modal-content
-                  img(:src='currentArticle.image')
-                  div(v-html='convertMarkdown(currentArticle.article)') 
-              .col-12
-                .d-flex.justify-content-center
-                  a.big-close-btn(href='#' @click.prevent='hideArticleModal' title='關閉')
-              
-      section#partner 
-        .container
-          .row.justify-content-center
-            .col-12.mb-3
-              h3 合作夥伴 
-            .col-12.col-lg-12
-              //- p 你熟悉的音樂賽事全在這
-              .row.partners
-                each _ in partners
-                  .col-6.col-md-4.col-lg-3
-                    a.item(href=_.link :href=`getFacebookLink(${_.facebookId})` target='_blank')
-                      img(src=_.img)
-                      .info
-                        h4=_.name
-                        small.school=_.schoolName
-                      
-      section#contact(ref='contactSection' v-cloak)
-        .container
-          .row.justify-content-center.align-items-center
-            .col-12.col-lg-6
-              h3 聯絡我們
-              transition(name='contact' mode='out-in')
-                form(@submit.prevent='submitContact' v-if='contactStatus <= 1')
-                  input(placeholder='姓名 *' maxlength=50 required v-model.trim='contact.name')
-                  input(type='email' placeholder='Email *' maxlength=100 required v-model.trim='contact.email')
-                  input(type='tel' placeholder='聯絡電話' maxlength=50 v-model.trim='contact.phone')
-                  textarea(placeholder='內容 *' required rows=4 maxlength=1000 v-model.trim='contact.content')  
-                  button.gradient-btn.submit(type='submit' :disabled='contactStatus === 1') {{ contactStatus === 1 ? `傳送中...` : `送出` }}
-                  small.text-danger(v-if='errorMessage') {{ errorMessage }}
-                .success(v-else-if='contactStatus === 2') 
-                  img(src='img/check.svg')
-                  span 謝謝你的來信，我們將會盡快與您聯繫!
-            .col-3.d-none.d-lg-flex: .envelope(:class='{ shrink: isShrink.envelope }')
-
-    include pug/include/footer.pug
-    include pug/include/script.pug
+                    .name {{ i.author }}
+                    .date {{ convertTime(i.timestamp) }}
+              .card-body(v-html='convertMarkdown(i.article)')
+          .col-12
+            a.gradient-btn.secondary(href='#' @click.prevent='fetchArticle(articleList[articleList.length - 1].id)' v-if='!isArticleEnd' :disabled='isFetchingArticle') 載入更多 »
+                
+        template(v-else) 目前尚無最新消息
+        
+    sweet-modal(ref='article-modal' width='100%' v-if='currentArticle' v-cloak) 
+      .container
+        .row.justify-content-center
+          .col-12.col-lg-8
+            .author
+              img.avatar(src='https://i.imgur.com/INFIh4d.png')
+              .info
+                .name {{ currentArticle.author }}
+                .date {{ convertTime(currentArticle.timestamp) }}
+          .col-12.col-lg-8
+            .sweet-modal-content
+              img(:src='currentArticle.image')
+              div(v-html='convertMarkdown(currentArticle.article)') 
+          .col-12
+            .d-flex.justify-content-center
+              a.big-close-btn(href='#' @click.prevent='hideArticleModal' title='關閉')
+          
+  section#partner 
+    .container
+      .row.justify-content-center
+        .col-12.mb-3
+          h3 合作夥伴 
+        .col-12.col-lg-12
+          //- p 你熟悉的音樂賽事全在這
+          .row.partners
+            each _ in partners
+              .col-6.col-md-4.col-lg-3
+                a.item(href=_.link :href=`getFacebookLink(${_.facebookId})` target='_blank')
+                  img(src=_.img)
+                  .info
+                    h4=_.name
+                    small.school=_.schoolName
+                  
+  section#contact(ref='contactSection' v-cloak)
+    .container
+      .row.justify-content-center.align-items-center
+        .col-12.col-lg-6
+          h3 聯絡我們
+          transition(name='contact' mode='out-in')
+            form(@submit.prevent='submitContact' v-if='contactStatus <= 1')
+              input(placeholder='姓名 *' maxlength=50 required v-model.trim='contact.name')
+              input(type='email' placeholder='Email *' maxlength=100 required v-model.trim='contact.email')
+              input(type='tel' placeholder='聯絡電話' maxlength=50 v-model.trim='contact.phone')
+              textarea(placeholder='內容 *' required rows=4 maxlength=1000 v-model.trim='contact.content')
+              transition(name='contact')
+                .d-flex.align-items-center(v-if='isCaptchaShow')
+                  canvas.mr-3(ref='captcha' width='100' height='36' @click='createdCaptcha')
+                  input.flex-grow-1.mb-0(type='text' placeholder='驗證碼 (請輸入阿拉伯數字)' maxlength=10 v-model.trim='captchaCode')
+                  
+              button.gradient-btn.submit(type='submit' :disabled='isSubmitDisabled') {{ contactStatus === 1 ? `傳送中...` : `送出` }}
+              small.text-danger(v-if='errorMessage') {{ errorMessage }}
+            .success(v-else-if='contactStatus === 2') 
+              img(src='img/check.svg')
+              span 謝謝你的來信，我們將會盡快與您聯繫!
+        .col-3.d-none.d-lg-flex: .envelope(:class='{ shrink: isShrink.envelope }') 
