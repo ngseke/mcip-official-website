@@ -1,5 +1,5 @@
 <template lang="pug">
-section
+section#contact
   .container
     .row.justify-content-center.align-items-center
       .col-12.col-lg-6
@@ -24,6 +24,8 @@ section
         .envelope
 </template>
 <script>
+import axios from 'axios'
+
 export default {
   name: "ContactUs",
   data () {

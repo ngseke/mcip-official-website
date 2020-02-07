@@ -2,25 +2,36 @@
 @import "functions"
 
 $shrink-bg-color: rgba(#1e1e1e, 1)
+$time-function: cubic-bezier(0.47,0,.4,.99)
 
 #nav
-  +py(1.25rem)
-  background-color: rgba(white, 0)
-  transition: background-color .3s, padding .3s
+  +py(0)
+  min-height: 4.5rem
+  background-color: transparent
+  position: absolute
+  left: 0
+  right: 0
+  z-index: 1000
+  top: 4.5rem
+  transform: translateY(-100%)
+  .container
+    position: relative
   .navbar-brand
-    transition: opacity .2s
-    opacity: 0
+    visibility: hidden
     img
       +wh(2rem)
       margin-right: .75rem
     span
       font-weight: 400
   &.shrink
-    +py(.5rem)
+    min-height: 4rem
+    position: fixed
     background-color: $shrink-bg-color
+    transition: transform .3s
+    transform: none
+    top: 0
     .navbar-brand
-      opacity: 1
-      transform: none
+      visibility: visible
   .divider
     height: .8rem
     width: 0
@@ -37,45 +48,44 @@ $shrink-bg-color: rgba(#1e1e1e, 1)
       opacity: 1
   a
     cursor: pointer
+    
+  button.navbar-toggler
+    +wh(3rem)
+    padding: .5rem
+    border: none
+    border-radius: 100rem
+    outline: none
+    transition: background-color .2s
+    &:active
+      background-color: rgba(white, .2)
 
 @media (max-width: 767.98px)
-  #nav 
+  #nav
     .divider
       height: 0
       width: 100%
       border-bottom: 1px solid rgba(#eee, .3)
       margin: .5rem 0
     .navbar-content
-      transition: all .3s
-      position: fixed
-      top: 0
-      left: 0
-      background-color: $shrink-bg-color
-      height: 100%
-      min-width: 18rem
+      z-index: 2000
+      transition: all .25s $time-function
+      transform-origin: right top
+      position: absolute
+      top: 3rem
+      right: 0
+      background-color: lighten($shrink-bg-color, 3%)
       padding: .5rem
       overflow: hidden
       ul.navbar-nav
-        transition: all .4s
-        padding-top: 2rem
-        +px(.5rem)
+        transition: all .2s $time-function .05s
+        padding: .5rem
       // 隱藏漢堡選單
       &.hide
-        transform: translateX(-100%)
+        transform: scaleY(0)
+        opacity: 0
         ul.navbar-nav
           opacity: 0
-          transform: translateX(-70%)
-    .outside
-      position: fixed
-      top: 0
-      left: 0
-      +wh(100%)
-      background: rgba($shrink-bg-color, .5)
-      backdrop-filter: blur(20px)
-
-    .outside-enter, .outside-leave-to
-      opacity: 0
-    .outside-leave, .outside-enter-to
-      opacity: 1
-    .outside-enter-active, .outside-leave-active
-      transition: opacity .3s
+          transform: translateY(-25%)
+          transform-origin: top center
+    button.navbar-toggler
+      +flex-center

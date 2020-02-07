@@ -9,16 +9,14 @@
 mixin nav-divider
   li(style={ display: `flex`, alignItems: `center` }): .divider
 
-nav#nav.navbar.navbar-expand-md.navbar-dark.fixed-top(:class='{ shrink: isShrink.nav }' v-cloak)
+nav#nav.navbar.navbar-expand-md.navbar-dark(:class='{ shrink: isShrink.nav }' v-cloak)
   .container
-    a.navbar-brand(href='/') 
+    a.navbar-brand(href='/')
       img(src='img/logo/logo-white.svg' alt='MCIP Logo White')
       //- span 樂台計畫
-    button.navbar-toggler.border-0(type='button' @click='isNavbarShow = !isNavbarShow')
-      span.navbar-toggler-icon
-    transition(name='outside')
-      .outside(v-if='isNavbarShow' @click='isNavbarShow = !!0')
-    .navbar-content(:class='{ hide: !isNavbarShow }')
+    button.navbar-toggler(type='button' @click.stop='isNavbarShow = !isNavbarShow')
+      fa(icon='bars')
+    .navbar-content(:class='{ hide: !isNavbarShow }' ref='navbarContent')
       ul.navbar-nav
         //- 所有在本頁的連結項目
         each _ in navItemsOnThisPage
@@ -27,4 +25,4 @@ nav#nav.navbar.navbar-expand-md.navbar-dark.fixed-top(:class='{ shrink: isShrink
         li.nav-item
           a.nav-link(href='https://www.facebook.com/mcipApp/' target='_blank' title='樂台計畫 Facebook 粉絲專頁')
             img.facebook-icon(src='img/facebook.svg')
-            span.d-span.d-md-none.ml-3 Facebook 粉絲專頁 
+            span.d-span.d-md-none.ml-3 Facebook 粉絲專頁

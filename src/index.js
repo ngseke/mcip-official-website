@@ -1,16 +1,23 @@
 import Vue from 'vue'
 import { SweetModal } from 'sweet-modal-vue'
 import countTo from 'vue-count-to'
+import axios from 'axios'
+import { throttle, debounce } from 'throttle-debounce'
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const VueScrollTo = require('vue-scrollto')
- 
-const axios = require('axios')
 const dayjs = require('dayjs')
 const marked = require('marked')
 
 import ContactUs from '/components/ContactUs.vue'
 
 Vue.use(VueScrollTo)
+Vue.component('fa', FontAwesomeIcon)
+
+library.add(faBars)
 
 new Vue({
   el: '#app',
@@ -37,11 +44,12 @@ new Vue({
   mounted () {
     this.setShrink()
     this.fetchArticle()
+    this.setBodyClickHandler()
   },
   methods: {
     // 根據目前捲軸位置，決定是否播放動畫
     setShrink () {
-      window.addEventListener('scroll', (e) => {
+      const throttled = throttle(300, () => {
         const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
         const refs = this.$refs
         const getElementTop = this.getElementTop
@@ -49,7 +57,7 @@ new Vue({
 
         this.isShrink = {
           ...isShrink,
-          nav: getElementTop(refs.lineAppSection) < 300,
+          nav: document.documentElement.scrollTop > 250,
         }
 
         if (isShrink.lineApp) this.isShrink.lineApp = getElementTop(refs.lineAppSection) > 200
@@ -58,6 +66,17 @@ new Vue({
 
         if (top > 100 && !this.isCountedTo) this.startCountTo()
       })
+      
+      window.addEventListener('scroll', throttled)
+      this.$once('hook:beforeDestroy', () => window.removeEventListener('scroll', throttled))
+    },
+    setBodyClickHandler () {
+      const handler = e => {
+        const { navbarContent } = this.$refs
+        if (!navbarContent.contains(e.target)) this.isNavbarShow = false
+      }
+      document.addEventListener('click', handler)
+      this.$once('hook:beforeDestroy', () => document.removeEventListener('click', handler))
     },
     getElementTop (_) {
       return _ ? _.getBoundingClientRect().top : null
