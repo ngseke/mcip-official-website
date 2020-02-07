@@ -5,7 +5,7 @@ section
       .col-12.col-lg-6
         h3 聯絡我們
         transition(name='contact' mode='out-in')
-          form(@submit.prevent='submitContact' v-if='contactStatus <= 1')
+          form(@submit.prevent='submitContact' v-if='status <= 1')
             input(placeholder='姓名 *' maxlength=50 required v-model.trim='contact.name')
             input(type='email' placeholder='Email *' maxlength=100 required v-model.trim='contact.email')
             input(type='tel' placeholder='聯絡電話' maxlength=50 v-model.trim='contact.phone')
@@ -15,9 +15,9 @@ section
                 canvas.mr-3(ref='captcha' width='100' height='36' @click='createdCaptcha')
                 input.flex-grow-1.mb-0(type='text' placeholder='驗證碼 (請輸入阿拉伯數字)' maxlength=10 v-model.trim='captchaCode')
                 
-            button.gradient-btn.submit(type='submit' :disabled='isSubmitDisabled') {{ contactStatus === 1 ? `傳送中...` : `送出` }}
+            button.gradient-btn.submit(type='submit' :disabled='isSubmitDisabled') {{ status === 1 ? `傳送中...` : `送出` }}
             small.text-danger(v-if='errorMessage') {{ errorMessage }}
-          .success(v-else-if='contactStatus === 2')
+          .success(v-else-if='status === 2')
             img(src='/img/check.svg')
             span 謝謝你的來信，我們將會盡快與您聯繫!
       .col-3.d-none.d-lg-flex
@@ -34,9 +34,11 @@ export default {
       isCaptchaShow: false,
       captchaCode: null,
       captchaAnswer: null,
-      contactStatus: 0,     // 0: 預設, 1: 傳送中, 2: 成功
+      status: 0,     // 0: 預設, 1: 傳送中, 2: 成功
       errorMessage: null,
     }
+  },
+  mounted () {
   },
   methods: {
     createdCaptcha () {
@@ -65,21 +67,21 @@ export default {
       const url = `https://us-central1-mc-integration-platform.cloudfunctions.net/firestoreContact`
 
       this.errorMessage = null
-      this.contactStatus = 1
+      this.status = 1
 
       try {
         const res = await axios.post(url, { ...this.contact, source: 2, type: 2 })
         // await (new Promise(resolve => setTimeout(resolve, 1000)))
-        this.contactStatus = 2
+        this.status = 2
       } catch (e) {
         this.errorMessage = `發生了一些問題，請稍後再試`
-        this.contactStatus = 0
+        this.status = 0
       }
     },
   },
   computed: {
     isSubmitDisabled () {
-      return this.contactStatus === 1 || this.captchaCode !== this.captchaAnswer
+      return this.status === 1 || this.captchaCode !== this.captchaAnswer
     }
   },
   watch: {
@@ -130,13 +132,13 @@ form
 
 .contact
   &-enter
-    transform: translateY(2rem)
+    transform: scale(.9)
     opacity: 0
   &-leave-to
-    transform: translateY(-2rem)
+    transform: scale(.9)
     opacity: 0
   &-enter-active, &-leave-active
-    transition: all .4s
+    transition: all .3s
   &-enter-to, &-leave
     transform: none
     opacity: 1
