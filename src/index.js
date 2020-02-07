@@ -1,17 +1,20 @@
+import Vue from 'vue'
 import { SweetModal } from 'sweet-modal-vue'
+import countTo from 'vue-count-to'
 
 const VueScrollTo = require('vue-scrollto')
-const VueCountTo = require('vue-count-to')
+ 
 const axios = require('axios')
 const dayjs = require('dayjs')
 const marked = require('marked')
 
 import ContactUs from '/components/ContactUs.vue'
 
-const mcip = new Vue({
-  el: `#app`,
+Vue.use(VueScrollTo)
+
+new Vue({
+  el: '#app',
   data () {
-    this.fieldNames = [`name`, `email`, `phone`, `content`]
     return {
       // 頁面動畫: 根據滾動位置判斷
       isShrink: {
@@ -21,13 +24,6 @@ const mcip = new Vue({
         backstage: true,
         envelope: true,
       },
-      // 聯絡我們
-      contact: { name: '',  email: '', phone: '', content: '' },
-      isCaptchaShow: false,
-      captchaCode: null,
-      captchaAnswer: null,
-      contactStatus: 0,   // 0: 預設, 1: 傳送中, 2: 成功
-      errorMessage: null,
       // 數字累加動畫
       isCountedTo: false,
       // 最新消息
@@ -76,22 +72,6 @@ const mcip = new Vue({
       else if (device.is(`AndroidOS`)) return `fb://page/${id}`
       else return `https://www.facebook.com/${id}`
     },
-    // 送出聯絡我們表單
-    async submitContact () {
-      const url = `https://us-central1-mc-integration-platform.cloudfunctions.net/firestoreContact`
-
-      this.errorMessage = null
-      this.contactStatus = 1
-
-      try {
-        const res = await axios.post(url, { ...this.contact, source: 2, type: 2 })
-        // await (new Promise(resolve => setTimeout(resolve, 1000)))
-        this.contactStatus = 2
-      } catch (e) {
-        this.errorMessage = `發生了一些問題，請稍後再試`
-        this.contactStatus = 0
-      }
-    },
     // 播放數字累加動畫
     startCountTo () {
       this.$refs[`count-to-user`].start()
@@ -135,49 +115,15 @@ const mcip = new Vue({
     hideArticleModal () {
       this.$refs[`article-modal`].close()
     },
-    createdCaptcha () {
-      this.captchaAnswer = (~~(Math.random() * 10**4)).toString().padStart(4, 0)
-      const text = this.captchaAnswer.split('').map(i => {
-        return '零一二三四五六七八九零壹貳參肆伍陸柒捌玖'.split('')[+i + ((Math.random() > .5) ? 10 : 0)]
-      }).join('')
-      console.log(this.captchaAnswer)
-      
-      const el = this.$refs.captcha
-      const ctx = el.getContext('2d')
-      ctx.clearRect(0, 0, el.width, el.height)
-      const gradient = ctx.createLinearGradient(0, 0, el.width, 0)
-      const gradientList = ['#2af1fb', '#2aeefb', '#34d2fb', '#45bdfa', '#50b0fa', '#54adfa', '#bf9ff2']
-      gradientList.forEach((i, index) => {
-        gradient.addColorStop(index / gradientList.length, i)
-      })
-      
-      ctx.font = '16px sans Serif'
-      ctx.fillStyle = gradient
-      ctx.textBaseline = 'middle'
-      const textWidth = ctx.measureText(text).width
-      ctx.fillText(text, (el.width / 2) - (textWidth / 2) + Math.random() * 50 - 25, 10 + Math.random() * 20)
-    }
   },
   computed: {
     isSubmitDisabled () {
       return this.contactStatus === 1 || this.captchaCode !== this.captchaAnswer
     }
   },
-  watch: {
-    contact: {
-      async handler (value) {
-        if (this.isCaptchaShow) return
-        if (this.fieldNames.filter(i => i !== 'phone').every(i => value[i])) {
-          this.isCaptchaShow = true
-          await this.$nextTick()
-          this.createdCaptcha()
-        }
-      },
-      deep: true,
-    }
-  },
   components: {
-    ContactUs,
-    SweetModal,
+		SweetModal,
+		countTo,
+    'contact-us': ContactUs,
 	}
 })

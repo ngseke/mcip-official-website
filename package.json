@@ -11,37 +11,32 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime": "^7.5.5",
-    "axios": "^0.19.0",
-    "dayjs": "^1.8.14",
+    "@babel/runtime": "^7.8.4",
+    "axios": "^0.19.2",
+    "dayjs": "^1.8.20",
     "marked": "^0.7.0",
     "sweet-modal-vue": "^2.0.0",
-    "vue": "^2.6.10",
+    "vue": "^2.6.11",
     "vue-count-to": "^1.0.13",
-    "vue-scrollto": "^2.15.0"
+    "vue-hot-reload-api": "^2.3.4",
+    "vue-scrollto": "^2.17.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/preset-flow": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
-    "autoprefixer": "^9.5.1",
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-flow": "^7.8.3",
+    "@babel/preset-react": "^7.8.3",
+    "@vue/component-compiler-utils": "^3.1.1",
+    "autoprefixer": "^9.7.4",
     "babel-plugin-transform-runtime": "^6.23.0",
     "cssnano": "^4.1.10",
-    "postcss-modules": "^1.4.1",
+    "postcss-modules": "^1.5.0",
     "pug": "^2.0.4",
-    "sass": "^1.22.7"
+    "sass": "^1.25.0",
+    "vue-template-compiler": "^2.6.11"
   },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {
-        "browsers": [
-          ">1%",
-          "last 2 versions",
-          "not ie < 10"
-        ]
-      }
-    }
+  "alias": {
+    "vue": "./node_modules/vue/dist/vue.common.js"
   }
 }
