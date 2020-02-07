@@ -6,7 +6,7 @@
   "source": true,
   "scripts": {
     "dev": "parcel src/index.pug src/line/index.pug",
-    "build": "parcel build src/index.pug src/line/index.pug"
+    "build": "rm -rf dist; parcel build --experimental-scope-hoisting src/index.pug src/line/index.pug"
   },
   "author": "",
   "license": "ISC",
@@ -44,5 +44,6 @@
   },
   "alias": {
     "vue": "./node_modules/vue/dist/vue.common.js"
-  }
+  },
+  "sideEffects": false
 }
