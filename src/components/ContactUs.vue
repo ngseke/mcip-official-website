@@ -1,5 +1,5 @@
 <template lang="pug">
-section(ref='contactSection')
+section
   .container
     .row.justify-content-center.align-items-center
       .col-12.col-lg-6
@@ -44,7 +44,6 @@ export default {
       const text = this.captchaAnswer.split('').map(i => {
         return '零一二三四五六七八九零壹貳參肆伍陸柒捌玖'.split('')[+i + ((Math.random() > .5) ? 10 : 0)]
       }).join('')
-      console.log(this.captchaAnswer)
       
       const el = this.$refs.captcha
       const ctx = el.getContext('2d')
@@ -69,15 +68,19 @@ export default {
       this.contactStatus = 1
 
       try {
-        // const res = await axios.post(url, { ...this.contact, source: 2, type: 2 })
-        throw 1
-        await (new Promise(resolve => setTimeout(resolve, 1000)))
+        const res = await axios.post(url, { ...this.contact, source: 2, type: 2 })
+        // await (new Promise(resolve => setTimeout(resolve, 1000)))
         this.contactStatus = 2
       } catch (e) {
         this.errorMessage = `發生了一些問題，請稍後再試`
         this.contactStatus = 0
       }
     },
+  },
+  computed: {
+    isSubmitDisabled () {
+      return this.contactStatus === 1 || this.captchaCode !== this.captchaAnswer
+    }
   },
   watch: {
     contact: {

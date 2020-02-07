@@ -22,7 +22,6 @@ new Vue({
         lineApp: true,
         payment: true,
         backstage: true,
-        envelope: true,
       },
       // 數字累加動畫
       isCountedTo: false,
@@ -56,7 +55,6 @@ new Vue({
         if (isShrink.lineApp) this.isShrink.lineApp = getElementTop(refs.lineAppSection) > 200
         if (isShrink.payment) this.isShrink.payment = getElementTop(refs.paymentSection) > 250
         if (isShrink.backstage) this.isShrink.backstage = getElementTop(refs.backstageSection) > 250
-        if (isShrink.envelope) this.isShrink.envelope = getElementTop(refs.contactSection) > 300
 
         if (top > 100 && !this.isCountedTo) this.startCountTo()
       })
@@ -115,11 +113,6 @@ new Vue({
     hideArticleModal () {
       this.$refs[`article-modal`].close()
     },
-  },
-  computed: {
-    isSubmitDisabled () {
-      return this.contactStatus === 1 || this.captchaCode !== this.captchaAnswer
-    }
   },
   components: {
 		SweetModal,
