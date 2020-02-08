@@ -15,6 +15,7 @@ const MobileDetect = require('mobile-detect')
 
 import ContactUs from '/components/ContactUs.vue'
 import Navbar from '/components/Navbar.vue'
+import TopProgressBar from '/components/TopProgressBar.vue'
 
 Vue.use(VueScrollTo)
 Vue.component('fa', FontAwesomeIcon)
@@ -25,6 +26,7 @@ new Vue({
   el: '#app',
   data () {
     return {
+      percentage: 0,
       // 頁面動畫: 根據滾動位置判斷
       isShrink: {
         lineApp: true,
@@ -87,9 +89,12 @@ new Vue({
 
       if (this.isFetchingArticle) return
       this.isFetchingArticle = true
+      this.percentage = .5
 
       const list = (await axios.get(url, { params: { after, limit } })).data
         .sort((a, b) => b.timestamp - a.timestamp)
+        
+      this.percentage = 1
 
       if (!this.articleList) this.articleList = list
       else this.articleList = [...this.articleList, ...list]
@@ -123,5 +128,6 @@ new Vue({
 		countTo,
     'contact-us': ContactUs,
     navbar: Navbar,
+    'top-progress-bar': TopProgressBar,
 	}
 })

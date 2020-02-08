@@ -1,6 +1,6 @@
 <template lang="pug">
 mixin nav-divider
-  li(style={ display: `flex`, alignItems: `center` }): .divider
+  li.d-flex.align-items-center: .divider
 
 nav#nav.navbar.navbar-expand-md.navbar-dark(:class='{ shrink: isShrink }' v-cloak)
   .container
