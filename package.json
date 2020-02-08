@@ -20,6 +20,7 @@
     "bootstrap": "^4.4.1",
     "dayjs": "^1.8.20",
     "marked": "^0.7.0",
+    "mobile-detect": "^1.4.4",
     "sweet-modal-vue": "^2.0.0",
     "throttle-debounce": "^2.1.0",
     "vue": "^2.6.11",
@@ -45,6 +46,5 @@
   },
   "alias": {
     "vue": "./node_modules/vue/dist/vue.common.js"
-  },
-  "sideEffects": false
+  }
 }

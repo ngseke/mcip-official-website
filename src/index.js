@@ -11,6 +11,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 const VueScrollTo = require('vue-scrollto')
 const dayjs = require('dayjs')
 const marked = require('marked')
+const MobileDetect = require('mobile-detect')
 
 import ContactUs from '/components/ContactUs.vue'
 import Navbar from '/components/Navbar.vue'
