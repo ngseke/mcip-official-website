@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { SweetModal } from 'sweet-modal-vue'
 import countTo from 'vue-count-to'
 import axios from 'axios'
-import { throttle, debounce } from 'throttle-debounce'
+import { throttle } from 'throttle-debounce'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -13,6 +13,7 @@ const dayjs = require('dayjs')
 const marked = require('marked')
 
 import ContactUs from '/components/ContactUs.vue'
+import Navbar from '/components/Navbar.vue'
 
 Vue.use(VueScrollTo)
 Vue.component('fa', FontAwesomeIcon)
@@ -25,7 +26,6 @@ new Vue({
     return {
       // 頁面動畫: 根據滾動位置判斷
       isShrink: {
-        nav: false,
         lineApp: true,
         payment: true,
         backstage: true,
@@ -37,46 +37,30 @@ new Vue({
       currentArticle: null,
       isFetchingArticle: false,
       isArticleEnd: false,
-      // Navbar
-      isNavbarShow: false,
     }
   },
   mounted () {
-    this.setShrink()
+    this.setOnScroll()
     this.fetchArticle()
-    this.setBodyClickHandler()
   },
   methods: {
     // 根據目前捲軸位置，決定是否播放動畫
-    setShrink () {
+    setOnScroll () {
       const throttled = throttle(300, () => {
         const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
-        const refs = this.$refs
+        const { lineAppSection, paymentSection, backstageSection } = this.$refs
         const getElementTop = this.getElementTop
         const isShrink = this.isShrink
-
-        this.isShrink = {
-          ...isShrink,
-          nav: document.documentElement.scrollTop > 250,
-        }
-
-        if (isShrink.lineApp) this.isShrink.lineApp = getElementTop(refs.lineAppSection) > 200
-        if (isShrink.payment) this.isShrink.payment = getElementTop(refs.paymentSection) > 250
-        if (isShrink.backstage) this.isShrink.backstage = getElementTop(refs.backstageSection) > 250
+ 
+        if (isShrink.lineApp) this.isShrink.lineApp = getElementTop(lineAppSection) > 200
+        if (isShrink.payment) this.isShrink.payment = getElementTop(paymentSection) > 250
+        if (isShrink.backstage) this.isShrink.backstage = getElementTop(backstageSection) > 250
 
         if (top > 100 && !this.isCountedTo) this.startCountTo()
       })
       
       window.addEventListener('scroll', throttled)
       this.$once('hook:beforeDestroy', () => window.removeEventListener('scroll', throttled))
-    },
-    setBodyClickHandler () {
-      const handler = e => {
-        const { navbarContent } = this.$refs
-        if (!navbarContent.contains(e.target)) this.isNavbarShow = false
-      }
-      document.addEventListener('click', handler)
-      this.$once('hook:beforeDestroy', () => document.removeEventListener('click', handler))
     },
     getElementTop (_) {
       return _ ? _.getBoundingClientRect().top : null
@@ -137,5 +121,6 @@ new Vue({
 		SweetModal,
 		countTo,
     'contact-us': ContactUs,
+    navbar: Navbar,
 	}
 })
