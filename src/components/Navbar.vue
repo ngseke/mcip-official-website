@@ -9,7 +9,7 @@ nav#nav.navbar.navbar-expand-md.navbar-dark(:class='{ shrink: isShrink }' v-cloa
     .navbar-content(:class='{ hide: !isShow }' ref='navbarContent')
       ul.navbar-nav
         li.nav-item(v-for='_ in items')
-          a.nav-link(v-scroll-to='{ el: _.tag, offset: -60 }' @click='isShow = false' v-if=' _.el') {{ _.name }}
+          a.nav-link(v-scroll-to='{ el: _.tag, offset: -60 }' @click='isShow = false' v-if='_.tag') {{ _.name }}
           a.nav-link(:href='_.url' @click='isShow = false' v-else-if='_.url') {{ _.name }}
         li.d-flex.align-items-center(v-if="items.length"): .divider
         li.nav-item

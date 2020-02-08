@@ -8,8 +8,8 @@ block content
   main#news
     header
       .container.news-title
-        h1(v-if='data') 
-          a.back-btn(href='/' cloak): fa(icon='angle-left')
+        h1(v-if='data' v-cloak)
+          a.back-btn(href='/'): fa(icon='angle-left')
           | {{ data.title }}
     section(v-if='data' v-cloak)
       .container
