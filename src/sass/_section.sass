@@ -131,6 +131,7 @@ section
     transition: transform .5s, box-shadow .3s
     border: 0
     box-shadow: $big-btn-shadow
+    color: #333
     &:hover
       transform: scale(1.02)
       cursor: pointer
@@ -179,19 +180,6 @@ section
           &.short
             width: 70%
 
-  .sweet-modal .sweet-content
-    +px(0)
-  .sweet-modal-content
-    text-align: left
-    word-wrap: break-word
-    p
-      margin-bottom: .5rem
-
-    img
-      width: 100%
-      height: auto
-      margin: 2rem 0
-
   .author
     display: flex
     flex-direction: row
@@ -228,8 +216,6 @@ section
       transform: rotate(45deg)
     &:after
       transform: rotate(-45deg)
-  .sweet-content, .sweet-modal
-    -webkit-overflow-scrolling: touch
 
 $line-icon-size: 7rem
 $line-icon-number-offset: .4rem

@@ -1,12 +1,7 @@
 import Vue from 'vue'
-import { SweetModal } from 'sweet-modal-vue'
 import countTo from 'vue-count-to'
 import axios from 'axios'
 import { throttle } from 'throttle-debounce'
-
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const VueScrollTo = require('vue-scrollto')
 const dayjs = require('dayjs')
@@ -18,9 +13,6 @@ import Navbar from '/components/Navbar.vue'
 import TopProgressBar from '/components/TopProgressBar.vue'
 
 Vue.use(VueScrollTo)
-Vue.component('fa', FontAwesomeIcon)
-
-library.add(faBars)
 
 new Vue({
   el: '#app',
@@ -78,8 +70,9 @@ new Vue({
     },
     // 播放數字累加動畫
     startCountTo () {
-      this.$refs[`count-to-user`].start()
-      this.$refs[`count-to-partner`].start()
+      [`count-to-user`, `count-to-partner`].forEach(name => {
+        this.$refs[name] && this.$refs[name].start()
+      })
       this.isCountedTo = true
     },
     // 取得最新消息
@@ -124,7 +117,6 @@ new Vue({
     },
   },
   components: {
-		SweetModal,
 		countTo,
     'contact-us': ContactUs,
     navbar: Navbar,

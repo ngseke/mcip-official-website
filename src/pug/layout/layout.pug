@@ -15,13 +15,12 @@ html(lang='zh-Hant-TW')
     meta(name='author' content='Huang Xingqiao')
     title 樂台計畫 - 大專院校民謠音樂比賽平台
     include ../include/style.pug
+    block style
   body
     #app
-      navbar
       top-progress-bar
-      main
-        block content
-
+      block content
+        
     include ../include/footer.pug
     include ../include/script.pug
     block script

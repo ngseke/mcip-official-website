@@ -1,0 +1,35 @@
+@import "variables"
+@import "functions"
+
+#news
+  header
+    +py(4rem)
+    padding-top: 5rem
+  .news-title
+    h1
+      display: flex
+      align-items: center
+      color: white
+      font-size: 2rem
+  
+  .back-btn
+    +flex-center
+    +wh(4rem)
+    color: white
+    padding: .5rem
+    border: none
+    border-radius: 100rem
+    outline: none
+    transition: background-color .2s
+    font-size: 1.5rem
+    &:active
+      background-color: rgba(white, .2)
+  
+  section
+    font-family: serif
+        
+  .author
+    margin-bottom: 2.5rem
+    
+  p
+    margin-bottom: 1rem

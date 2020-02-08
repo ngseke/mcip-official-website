@@ -1,7 +1,4 @@
 <template lang="pug">
-mixin nav-divider
-  li.d-flex.align-items-center: .divider
-
 nav#nav.navbar.navbar-expand-md.navbar-dark(:class='{ shrink: isShrink }' v-cloak)
   .container
     a.navbar-brand(href='/')
@@ -11,29 +8,46 @@ nav#nav.navbar.navbar-expand-md.navbar-dark(:class='{ shrink: isShrink }' v-cloa
       fa(icon='bars')
     .navbar-content(:class='{ hide: !isShow }' ref='navbarContent')
       ul.navbar-nav
-        li.nav-item(v-for='_ in navItemsOnThisPage')
-          a.nav-link(v-scroll-to='{ el: _.tag, offset: -60 }' @click='isShow = false') {{ _.name }}
-        +nav-divider
+        li.nav-item(v-for='_ in items')
+          a.nav-link(v-scroll-to='{ el: _.tag, offset: -60 }' @click='isShow = false' v-if=' _.el') {{ _.name }}
+          a.nav-link(:href='_.url' @click='isShow = false' v-else-if='_.url') {{ _.name }}
+        li.d-flex.align-items-center(v-if="items.length"): .divider
         li.nav-item
           a.nav-link(href='https://www.facebook.com/mcipApp/' target='_blank' title='樂台計畫 Facebook 粉絲專頁')
             img.facebook-icon(src='/img/facebook.svg')
             span.d-span.d-md-none.ml-3 Facebook 粉絲專頁
 </template>
 <script>
+import Vue from 'vue'
+
 import { throttle } from 'throttle-debounce'
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faBars)
+Vue.component('fa', FontAwesomeIcon)
+
+const VueScrollTo = require('vue-scrollto')
+Vue.use(VueScrollTo)
 
 export default {
   name: 'Navbar',
   data () {
-    this.navItemsOnThisPage = [
-      { name: `LINE App`, tag: `#line-app` },
-      { name: `最新消息`, tag: `#news` },
-      { name: `合作夥伴`, tag: `#partner` },
-      { name: `聯絡我們`, tag: `#contact` },
-    ]
     return {
       isShrink: false,
       isShow: false,
+    }
+  },
+  props: {
+    items: {
+      default: () => ([
+        { name: `LINE App`, tag: `#line-app` },
+        { name: `最新消息`, tag: `#news` },
+        { name: `合作夥伴`, tag: `#partner` },
+        { name: `聯絡我們`, tag: `#contact` },
+      ])
     }
   },
   mounted () {
@@ -63,7 +77,6 @@ export default {
 
 </script>
 <style lang="sass" scoped>
-
 $shrink-bg-color: #202124
 $time-function: cubic-bezier(0.47,0,.4,.99)
 
