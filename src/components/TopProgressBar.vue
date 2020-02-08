@@ -44,6 +44,7 @@ export default {
   right: 0
   height: 3px
   z-index: 9990
+  background-color: transparent
   .progress-bar
     transition-duration: 1s
     transition-delay: .2s

@@ -70,10 +70,10 @@ export default {
 
       this.errorMessage = null
       this.status = 1
-
+      
       try {
         const res = await axios.post(url, { ...this.contact, source: 2, type: 2 })
-        // await (new Promise(resolve => setTimeout(resolve, 1000)))
+        // await (new Promise(resolve => setTimeout(resolve, 5000)))
         this.status = 2
       } catch (e) {
         this.errorMessage = `發生了一些問題，請稍後再試`
@@ -97,6 +97,10 @@ export default {
         }
       },
       deep: true,
+    },
+    status (_) {
+      if (_ === 1) this.$root.percentage = .5
+      else if (_ === 2) this.$root.percentage = 1
     }
   },
 }
