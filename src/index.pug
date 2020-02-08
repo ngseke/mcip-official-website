@@ -29,9 +29,10 @@ block content
                 count-to.number(:end-val='3500' :duration='3000' suffix='+' :autoplay='false' ref='count-to-user' v-cloak) 3500+
                 .info 樂台計畫總用戶數
               .count-to.text-center.text-md-left
-                count-to.number(:end-val='23' :duration='3000' suffix='' :autoplay='false' ref='count-to-partner' v-cloak) 23
+                count-to.number(:end-val='23' :duration='3000' :autoplay='false' ref='count-to-partner' v-cloak) 23
                 span.label 所
-                .info 合作院校
+                .info 
+                  | 合作院校 #[sup: a(v-scroll-to='{ el: `#partner`, offset: -60 }' href='#') *]
                 
   section#payment(ref='paymentSection')
     .container
