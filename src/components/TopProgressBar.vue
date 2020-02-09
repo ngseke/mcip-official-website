@@ -1,7 +1,7 @@
 <template lang="pug">
 transition(name="progress")
   .progress(v-if='isShow')
-    .progress-bar(:style='style')
+    .progress-bar.progress-bar-striped.progress-bar-animated(:style='style')
 </template>
 <script>
 export default {
@@ -47,7 +47,7 @@ export default {
   background-color: transparent
   .progress-bar
     transition-duration: 1s
-    transition-delay: .2s
+    transition-delay: 0
     transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1)
     
   &-enter
