@@ -3,7 +3,7 @@ nav#nav.navbar.navbar-expand-md.navbar-dark(:class='{ shrink: isShrink }' v-cloa
   .container
     a.navbar-brand(href='/')
       img(src='/img/logo/logo-white.svg' alt='MCIP Logo White')
-      //- span 樂台計畫
+      .text 樂台計畫
     button.navbar-toggler(type='button' @click.stop='isShow = !isShow')
       fa(icon='bars')
     .navbar-content(:class='{ hide: !isShow }' ref='navbarContent')
@@ -167,4 +167,22 @@ $time-function: cubic-bezier(0.47,0,.4,.99)
           transform-origin: top center
     button.navbar-toggler
       +flex-center
+
+//- Popping out text
+#nav
+  .navbar-brand
+    .text
+      display: inline-block
+      letter-spacing: -1rem
+      opacity: 0
+      letter-spacing: -1.3rem
+  &.shrink
+    .navbar-brand
+      .text
+        transition: letter-spacing .7s, opacity 1s
+        transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1)
+        transition-delay: .2s
+        opacity: 1
+        letter-spacing: 1px
+
 </style>
