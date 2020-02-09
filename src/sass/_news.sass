@@ -1,6 +1,14 @@
 @import "variables"
 @import "functions"
 
+html
+  height: 100%
+  body
+    min-height: 100%
+    display: flex
+    flex-direction: column
+    #app
+      flex: 1
 #news
   header
     +py(4rem)
