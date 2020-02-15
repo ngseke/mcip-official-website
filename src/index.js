@@ -13,13 +13,6 @@ import ContactUs from '/components/ContactUs.vue'
 import Navbar from '/components/Navbar.vue'
 import TopProgressBar from '/components/TopProgressBar.vue'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faAngleRight)
-Vue.component('fa', FontAwesomeIcon)
-
 Vue.use(VueScrollTo)
 
 new Vue({
