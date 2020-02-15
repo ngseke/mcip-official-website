@@ -5,19 +5,19 @@ block script
   script(src='news.js')
 block content
   navbar(:items='[{ name: `樂台計畫首頁`, url: `/` },]')
-  main#news
+  main#news(itemscope itemtype='http://schema.org/Article')
     header
       .container.news-title
         h1(v-if='data' v-cloak)
           a.back-btn(href='/'): fa(icon='angle-left')
-          | {{ data.title }}
+          span(itemprop='headline') {{ data.title }}
     section(v-if='data' v-cloak)
       .container
         .row.justify-content-center: .col-12.col-lg-10.col-xl-8
           .author
             img.avatar(src='https://i.imgur.com/INFIh4d.png')
             .info
-              .name {{ data.author }}
-              .date {{ convertTime(data.timestamp) }}
-          img.img-fluid.mb-3(:src='data.image' v-if='data.image')
-          div(v-html='convertMarkdown(data.article)')
+              .name(itemprop='author') {{ data.author }}
+              .date(itemprop='datePublished' :content='convertTime(data.timestamp, `YYYY-MM-DD`)') {{ convertTime(data.timestamp) }}
+          img.img-fluid.mb-3(:src='data.image' v-if='data.image' itemprop='image')
+          div(v-html='convertMarkdown(data.article)' itemprop='articleBody')

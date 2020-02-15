@@ -42,8 +42,8 @@ new Vue({
       
       this.percentage = 1
     },
-    convertTime (_) {
-      return dayjs(_).format('YYYY年MM月DD日')
+    convertTime (_, format = 'YYYY年MM月DD日') {
+      return dayjs(_).format(format)
     },
     convertMarkdown (_) {
       return marked(_)
