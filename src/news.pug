@@ -14,7 +14,7 @@ block content
         h1
           | 最新消息
           small News
-    section
+    section(v-cloak)
       .container(v-if='articleList'): .row.justify-content-center: .col-12.col-lg-10.col-xl-8
         breadcrum(:items='[ { name: `首頁`, url: `/` }, { name: `最新消息` }]')
         ul.article-list
