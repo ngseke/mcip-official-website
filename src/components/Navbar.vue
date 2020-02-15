@@ -1,5 +1,5 @@
 <template lang="pug">
-nav#nav.navbar.navbar-expand-md.navbar-dark(:class='{ shrink: isShrink }' v-cloak)
+nav#nav.navbar.navbar-expand-md(:class='{ shrink: isShrink, "navbar-dark": dark }' v-cloak)
   .container
     a.navbar-brand(href='/')
       img(src='/img/logo/logo-white.svg' alt='MCIP Logo White')
@@ -10,7 +10,7 @@ nav#nav.navbar.navbar-expand-md.navbar-dark(:class='{ shrink: isShrink }' v-cloa
       ul.navbar-nav
         li.nav-item(v-for='_ in items')
           a.nav-link(v-scroll-to='{ el: _.tag, offset: -60 }' @click='isShow = false' v-if='_.tag') {{ _.name }}
-          a.nav-link(:href='_.url' @click='isShow = false' v-else-if='_.url') {{ _.name }}
+          a.nav-link(:href='_.url' @click='isShow = false' v-else-if='_.url' :class='{ active: _.active }') {{ _.name }}
         li.d-flex.align-items-center(v-if="items.length"): .divider
         li.nav-item
           a.nav-link(href='https://www.facebook.com/mcipApp/' target='_blank' title='樂台計畫 Facebook 粉絲專頁')
@@ -43,11 +43,14 @@ export default {
   props: {
     items: {
       default: () => ([
-        { name: `LINE App`, tag: `#line-app` },
-        { name: `最新消息`, tag: `#news` },
-        { name: `合作夥伴`, tag: `#partner` },
-        { name: `聯絡我們`, tag: `#contact` },
+        // { name: `LINE App`, tag: `#line-app` },
+        { name: `最新消息`, url: `/news.html` },
+        // { name: `合作夥伴`, tag: `#partner` },
+        // { name: `聯絡我們`, tag: `#contact` },
       ])
+    },
+    dark: {
+      default: true,
     }
   },
   mounted () {

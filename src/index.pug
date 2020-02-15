@@ -65,9 +65,12 @@ block content
               
     section#news(v-cloak)
       .container
-        .row 
-          .col-12.col-lg-12.mb-3 
-            h3 最新消息
+        .row
+          .col-12.col-lg-12.mb-3
+            a.title(:href='`/news.html`')
+              h3
+                | 最新消息
+                span.icon.ml-3(icon='angle-right') ➔
             
           template(v-if='!articleList')
             //- 插入三個偽 loader
@@ -88,7 +91,7 @@ block content
                       .date {{ convertTime(i.timestamp) }}
                 .card-body(v-html='convertMarkdown(i.article)')
             .col-12
-              a.gradient-btn.secondary(href='#' @click.prevent='fetchArticle(articleList[articleList.length - 1].id)' v-if='!isArticleEnd' :disabled='isFetchingArticle') 載入更多 »
+              a.gradient-btn.secondary(href='#' @click.prevent='fetchArticleList(articleList[articleList.length - 1].id)' v-if='!isArticleEnd' :disabled='isFetchingArticleList') 載入更多 »
                   
           template(v-else) 目前尚無最新消息
 

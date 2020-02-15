@@ -1,23 +1,43 @@
 extends pug/layout/layout.pug
 block style
   link(href=`sass/_news.sass` rel='stylesheet')
+  link(href=`sass/_news-list.sass` rel='stylesheet')
 block script
   script(src='news.js')
 block content
-  navbar(:items='[{ name: `樂台計畫首頁`, url: `/` },]')
-  main#news(itemscope itemtype='http://schema.org/Article')
+  navbar(:items='[{ name: `首頁`, url: `/` }, { name: `最新消息`, url: `/news.html`, active: true }]')
+
+  //- News List
+  main#news-list(v-if='!id')
+    header
+      .container.news-title
+        h1
+          | 最新消息
+          small News
+    section
+      .container(v-if='articleList'): .row.justify-content-center: .col-12.col-lg-10.col-xl-8
+        breadcrum(:items='[ { name: `首頁`, url: `/` }, { name: `最新消息` }]')
+        ul.article-list
+          li(v-for='i in articleList')
+            a(:href='`/news.html?id=${i.id}`')
+              h2 {{ i.title }}
+              small {{ convertTime(i.timestamp) }}
+  
+  //- News Article
+  main#news(itemscope itemtype='http://schema.org/Article' v-else v-cloak)
     header
       .container.news-title
         h1(v-if='data' v-cloak)
-          a.back-btn(href='/'): fa(icon='angle-left')
+          a.back-btn(:href='`/news.html`'): fa(icon='angle-left')
           span(itemprop='headline') {{ data.title }}
     section(v-if='data' v-cloak)
-      .container
-        .row.justify-content-center: .col-12.col-lg-10.col-xl-8
-          .author
-            img.avatar(src='https://i.imgur.com/INFIh4d.png')
-            .info
-              .name(itemprop='author') {{ data.author }}
-              .date(itemprop='datePublished' :content='convertTime(data.timestamp, `YYYY-MM-DD`)') {{ convertTime(data.timestamp) }}
-          img.img-fluid.mb-3(:src='data.image' v-if='data.image' itemprop='image')
-          div(v-html='convertMarkdown(data.article)' itemprop='articleBody')
+      .container: .row.justify-content-center: .col-12.col-lg-10.col-xl-8
+        breadcrum(:items='[ { name: `首頁`, url: `/` }, { name: `最新消息`, url: `/news.html` }, { name: data.title }]')
+          
+        .author
+          img.avatar(src='https://i.imgur.com/INFIh4d.png')
+          .info
+            .name(itemprop='author') {{ data.author }}
+            .date(itemprop='datePublished' :content='convertTime(data.timestamp, `YYYY-MM-DD`)') {{ convertTime(data.timestamp) }}
+        img.img-fluid.mb-3(:src='data.image' v-if='data.image' itemprop='image')
+        article(v-html='convertMarkdown(data.article)' itemprop='articleBody')

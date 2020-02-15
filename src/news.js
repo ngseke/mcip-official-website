@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import axios from 'axios'
 
+import { common } from '/common'
+
 const dayjs = require('dayjs')
 const marked = require('marked')
 const queryString = require('query-string')
  
 import Navbar from '/components/Navbar.vue'
+import Breadcrum from '/components/Breadcrum.vue'
 import TopProgressBar from '/components/TopProgressBar.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -17,6 +20,7 @@ Vue.component('fa', FontAwesomeIcon)
 
 new Vue({
   el: '#app',
+  mixins: [common],
   data () {
     return {
       percentage: 0,
@@ -24,8 +28,12 @@ new Vue({
     }
   },
   mounted () {
-    if (!this.id) this.goToIndex()
-    this.fetch()
+    if (!this.id) { // show list
+      // this.goToIndex()
+      this.fetchArticleList(null, 9999)
+    } else {  // show article
+      this.fetch()
+    }
   },
   methods: {
     async fetch () {
@@ -33,7 +41,7 @@ new Vue({
       const url = `https://us-central1-mc-integration-platform.cloudfunctions.net/article/app`
       this.percentage = .5
       
-      this.data = (await axios.get(url, { params: { id } })).data
+      this.data = (await axios.get(url, { params: { id } }).catch(this.goToIndex)).data
       
       const { title, article } = this.data
  
@@ -66,6 +74,7 @@ new Vue({
   },
   components: {
     navbar: Navbar,
+    breadcrum: Breadcrum,
     'top-progress-bar': TopProgressBar,
-	}
+  },
 })
