@@ -8,7 +8,7 @@ const marked = require('marked')
 const queryString = require('query-string')
  
 import Navbar from '/components/Navbar.vue'
-import Breadcrum from '/components/Breadcrum.vue'
+import Breadcrumb from '/components/Breadcrumb.vue'
 import TopProgressBar from '/components/TopProgressBar.vue'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -74,7 +74,7 @@ new Vue({
   },
   components: {
     navbar: Navbar,
-    breadcrum: Breadcrum,
+    breadcrumb: Breadcrumb,
     'top-progress-bar': TopProgressBar,
   },
 })

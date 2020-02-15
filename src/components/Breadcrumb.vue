@@ -1,5 +1,5 @@
 <template lang="pug">
-ol(itemscope itemtype='http://schema.org/BreadcrumbList')
+ol(itemscope itemtype='http://schema.org/BreadcrumbbList')
   li(v-for='(i, index) in items' v-if='items' itemprop='itemListElement' itemscope itemtype='http://schema.org/ListItem')
     a(:href='i.url' itemprop='item')
       span(itemprop='name') {{ i.name }}
@@ -7,7 +7,7 @@ ol(itemscope itemtype='http://schema.org/BreadcrumbList')
 </template>
 <script>
 export default {
-  name: 'Breadcrum',
+  name: 'Breadcrumb',
   props: ['items'],
 }
 
@@ -16,6 +16,7 @@ export default {
 ol
   list-style: none
   display: flex
+  flex-wrap: wrap
   padding: 0 .5rem
   margin-bottom: 2rem
   li
