@@ -34,7 +34,12 @@ new Vue({
       this.percentage = .5
       
       this.data = (await axios.get(url, { params: { id } })).data
+      
+      const { title, article } = this.data
  
+      this.setTitle(title.trim())
+      this.setMeta(article.replace(title, '').replace(/\n/g, ' ').substr(0, 150).trim())
+      
       this.percentage = 1
     },
     convertTime (_) {
@@ -45,6 +50,12 @@ new Vue({
     },
     goToIndex () {
       window.location.href = '/'
+    },
+    setTitle (_) {
+      document.title = `${_} - 最新消息 - 樂台計畫`
+    },
+    setMeta (_) {
+      document.getElementsByTagName('meta')['description'].content = _
     },
   },
   computed: {
