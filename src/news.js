@@ -31,6 +31,7 @@ new Vue({
     if (!this.id) { // show list
       this.fetchArticleList(null, 9999)
       this.setTitle()
+      this.setMeta('你不想錯過的第一手最新消息、音樂賽事快報，以及你最愛的音樂人不藏私介紹企劃，來看樂台計畫就對了！ | 樂台計畫 - 大專院校民謠音樂比賽平台')
     } else {  // show article
       this.fetch()
     }
