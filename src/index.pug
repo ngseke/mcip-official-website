@@ -67,17 +67,17 @@ block content
       .container
         .row
           .col-12.col-lg-12.mb-3
-            a.title(:href='`/news.html`')
+            a.title(:href='`/news.html`' title='查看所有最新消息')
               h3
                 | 最新消息
                 span.icon.ml-3(icon='angle-right') ➔
             
           template(v-if='!articleList')
             //- 插入三個偽 loader
-            +article-card-loader 
+            +article-card-skeleton-screen 
             - let i = 0
             while ++i < 3
-              +article-card-loader 
+              +article-card-skeleton-screen 
               
           template(v-else-if='articleList.length > 0' v-cloak)
             .col-12.col-md-6.col-lg-4(v-for='(i, index) in articleList')
