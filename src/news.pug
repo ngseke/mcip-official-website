@@ -7,7 +7,7 @@ block script
 block content
   navbar(:items='[{ name: `首頁`, url: `/` }, { name: `最新消息`, url: `/news.html`, active: true }]')
 
-  //- News List
+  //-- News List --
   main#news-list(v-if='!id')
     header
       .container.news-title
@@ -23,12 +23,12 @@ block content
               h2 {{ i.title }}
               small {{ convertTime(i.timestamp) }}
   
-  //- News Article
+  //-- News Article --
   main#news(itemscope itemtype='http://schema.org/Article' v-else v-cloak)
     header
       .container.news-title
         h1(v-if='data' v-cloak)
-          a.back-btn(:href='`/news.html`'): fa(icon='angle-left')
+          a.back-btn(:href='`/news.html`' title='返回最新消息列表'): fa(icon='angle-left')
           span(itemprop='headline') {{ data.title }}
     section(v-if='data' v-cloak)
       .container: .row.justify-content-center: .col-12.col-lg-10.col-xl-8
