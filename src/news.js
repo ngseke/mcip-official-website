@@ -29,8 +29,8 @@ new Vue({
   },
   mounted () {
     if (!this.id) { // show list
-      // this.goToIndex()
       this.fetchArticleList(null, 9999)
+      this.setTitle()
     } else {  // show article
       this.fetch()
     }
@@ -60,7 +60,9 @@ new Vue({
       window.location.href = '/'
     },
     setTitle (_) {
-      document.title = `${_} - 最新消息 - 樂台計畫`
+      document.title = _
+        ? `${_} - 最新消息 - 樂台計畫`
+        : `最新消息 - 樂台計畫`
     },
     setMeta (_) {
       document.getElementsByTagName('meta')['description'].content = _
