@@ -2,16 +2,20 @@
 @import "functions"
 
 footer
-  // background-color: #1e1e1e
   color: grey
   font-size: .85rem
   a
     color: lighten(grey, 10%)
     font-weight: bold
+    +floating-link
     &:hover
       color: lighten(grey, 20%)
   ul
-    padding: 0
+    vertical-align: top
     list-style: none
-    padding-right: 2rem
-    // border-right: 1px solid lighten(grey, 20%)
+    display: inline-block
+    padding: 0 1rem
+    &:not(:last-child)
+      border-right: 1px solid lighten(grey, 20%)
+    &:first-child
+      padding-left: 0

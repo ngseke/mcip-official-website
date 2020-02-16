@@ -2,7 +2,7 @@
 @import "functions"
 
 main
-  section:nth-child(even)
+  section:nth-child(odd)
     background-color: rgba(#eee, .4)
 
 section
@@ -72,10 +72,7 @@ section
     list-style: none
     margin-bottom: 1.25rem
     transform-origin: center center
-    &:hover
-      opacity: .7
-    &:active
-      transform: scale(.95)
+    +floating-link
     img
       height: auto
       width: 3rem
