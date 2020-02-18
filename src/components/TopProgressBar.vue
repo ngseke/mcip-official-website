@@ -8,12 +8,12 @@ export default
   name: 'TopProgressBar'
   
   data: ->
-    isShow: false,
-    value: 0,
+    isShow: false
+    value: 0
     
   computed:
     percentage: ->
-      @$root.$data.percentage || 0
+      @$root.$data.percentage ? 0
     style: ->
       width: "#{@value * 100}%"
   

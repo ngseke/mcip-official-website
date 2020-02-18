@@ -5,13 +5,14 @@ ol(itemscope itemtype='http://schema.org/BreadcrumbbList')
       span(itemprop='name') {{ i.name }}
     meta(itemprop='position' :content='index + 1')
 </template>
-<script>
-export default {
-  name: 'Breadcrumb',
-  props: ['items'],
-}
+
+<script lang="coffee">
+export default
+  name: 'Breadcrumb'
+  props: ['items']
 
 </script>
+
 <style lang="sass" scoped>
 ol
   list-style: none

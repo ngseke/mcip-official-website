@@ -58,7 +58,7 @@ export default
   methods:
     setShrink: ->
       throttled = throttle 300, =>
-        top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
+        top = document.scrollingElement.scrollTop ? document.documentElement.scrollTop
         @isShrink = top > 250
       
       window.addEventListener('scroll', throttled)
