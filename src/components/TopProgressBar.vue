@@ -13,20 +13,20 @@ export default
     
   computed:
     percentage: ->
-      this.$root.$data.percentage || 0
+      @$root.$data.percentage || 0
     style: ->
-      width: "#{this.value * 100}%"
+      width: "#{@value * 100}%"
   
   watch:
     percentage: (_) ->
       if _ < 1
-        this.isShow = true
-        setTimeout (() => this.value = _), 200
+        @isShow = true
+        setTimeout (=> @value = _), 200
       else
-        this.value = _
-        await this.$nextTick()
-        this.isShow = false
-        this.value = 0
+        @value = _
+        await @$nextTick()
+        @isShow = false
+        @value = 0
 </script>
 
 <style lang="sass" scoped>
