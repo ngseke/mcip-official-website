@@ -3,39 +3,32 @@ transition(name="progress")
   .progress(v-if='isShow')
     .progress-bar.progress-bar-striped.progress-bar-animated(:style='style')
 </template>
-<script>
-export default {
-  name: 'TopProgressBar',
-  data () {
-    return {
-      isShow: false,
-      value: 0,
-    }
-  },
-  computed: {
-    percentage () {
-      return this.$root.$data.percentage || 0
-    },
-    style () {
-      return { width: `${this.value * 100}%` }
-    }
-  },
-  watch: {
-    async percentage (_) {
-      if (_ < 1) {
-        this.isShow = true
-        setTimeout(() => this.value = _, 200)
-      } else {
-        this.value = _
-        await this.$nextTick()
-        this.isShow = false
-        this.value = 0
-      }
-    },
-  }
-}
-
+<script lang="coffee">
+export default
+  name: 'TopProgressBar'
+  
+  data: ->
+    isShow: false
+    value: 0
+    
+  computed:
+    percentage: ->
+      @$root.$data.percentage ? 0
+    style: ->
+      width: "#{@value * 100}%"
+  
+  watch:
+    percentage: (_) ->
+      if _ < 1
+        @isShow = true
+        setTimeout (=> @value = _), 200
+      else
+        @value = _
+        await @$nextTick()
+        @isShow = false
+        @value = 0
 </script>
+
 <style lang="sass" scoped>
 .progress
   position: fixed

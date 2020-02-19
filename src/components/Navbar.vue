@@ -17,7 +17,7 @@ nav#nav.navbar.navbar-expand-md(:class='{ shrink: isShrink, "navbar-dark": dark 
             img.facebook-icon(src='/img/facebook.svg')
             span.d-span.d-md-none.ml-3 Facebook 粉絲專頁
 </template>
-<script>
+<script lang="coffee">
 import Vue from 'vue'
 
 import { throttle } from 'throttle-debounce'
@@ -26,59 +26,53 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faBars)
-Vue.component('fa', FontAwesomeIcon)
+library.add faBars
+Vue.component 'fa', FontAwesomeIcon
 
-const VueScrollTo = require('vue-scrollto')
-Vue.use(VueScrollTo)
+VueScrollTo = require 'vue-scrollto'
+Vue.use VueScrollTo
 
-export default {
-  name: 'Navbar',
-  data () {
-    return {
-      isShrink: false,
-      isShow: false,
-    }
-  },
-  props: {
-    items: {
-      default: () => ([
-        // { name: `LINE App`, tag: `#line-app` },
-        { name: `最新消息`, url: `/news.html` },
-        // { name: `合作夥伴`, tag: `#partner` },
-        // { name: `聯絡我們`, tag: `#contact` },
-      ])
-    },
-    dark: {
-      default: true,
-    }
-  },
-  mounted () {
-    this.setShrink()
-    this.setOnBodyClick()
-  },
-  methods: {
-    setShrink () {
-      const throttled = throttle(300, () => {
-        const top = document.scrollingElement.scrollTop || document.documentElement.scrollTop
-        this.isShrink = top > 250
-      })
+export default
+  name: 'Navbar'
+  
+  data: ->
+    isShrink: false
+    isShow: false
+    
+  props:
+    items:
+      default: => [
+        # { name: 'LINE App', tag: '#line-app' }
+        { name: '最新消息', url: '/news.html' }
+        # { name: '合作夥伴', tag: '#partner' }
+        # { name: '聯絡我們', tag: '#contact' }
+      ]
+
+    dark:
+      default: true
+    
+  mounted: ->
+    @setShrink()
+    @setOnBodyClick()
+
+  methods:
+    setShrink: ->
+      throttled = throttle 300, =>
+        top = document.scrollingElement.scrollTop ? document.documentElement.scrollTop
+        @isShrink = top > 250
       
       window.addEventListener('scroll', throttled)
-      this.$once('hook:beforeDestroy', () => window.removeEventListener('scroll', throttled))
-    },
-    setOnBodyClick () {
-      const handler = e => {
-        const { navbarContent } = this.$refs
-        if (!navbarContent.contains(e.target)) this.isShow = false
-      }
-      document.addEventListener('click', handler)
-      this.$once('hook:beforeDestroy', () => document.removeEventListener('click', handler))
-    },
-  },
-}
-
+      @$once 'hook:beforeDestroy', => window.removeEventListener 'scroll', throttled
+ 
+    setOnBodyClick: ->
+      handler = (e) =>
+        { navbarContent } = @$refs
+        @isShow = false if !navbarContent.contains e.target
+      
+      document.addEventListener 'click', handler
+      @$once('hook:beforeDestroy', => document.removeEventListener('click', handler))
 </script>
+
 <style lang="sass" scoped>
 $shrink-bg-color: #202124
 $time-function: cubic-bezier(0.47,0,.4,.99)
