@@ -1,8 +1,8 @@
 <template lang="pug">
-nav#nav.navbar.navbar-expand-md(:class='{ shrink: isShrink, "navbar-dark": dark }' v-cloak)
+nav#nav.navbar.navbar-expand-md(:class='{ shrink: isShrink, "navbar-dark": isDark, "navbar-light": !isDark }' v-cloak)
   .container
     a.navbar-brand(href='/')
-      img(src='/img/logo/logo-white.svg' alt='MCIP Logo White')
+      img(src='/img/logo/logo-black.svg' alt='MCIP Logo White')
       .text 樂台計畫
     button.navbar-toggler(type='button' @click.stop='isShow = !isShow')
       fa(icon='bars')
@@ -14,7 +14,8 @@ nav#nav.navbar.navbar-expand-md(:class='{ shrink: isShrink, "navbar-dark": dark 
         li.d-flex.align-items-center(v-if="items.length"): .divider
         li.nav-item
           a.nav-link(href='https://www.facebook.com/mcipApp/' target='_blank' title='樂台計畫 Facebook 粉絲專頁')
-            img.facebook-icon(src='/img/facebook.svg')
+            img.facebook-icon(src='/img/facebook.svg' v-if='isDark')
+            img.facebook-icon(src='/img/facebook-black.svg' v-else)
             span.d-span.d-md-none.ml-3 Facebook 粉絲專頁
 </template>
 <script lang="coffee">
@@ -36,6 +37,7 @@ export default
   name: 'Navbar'
   
   data: ->
+    top: null
     isShrink: false
     isShow: false
     
@@ -47,9 +49,6 @@ export default
         # { name: '合作夥伴', tag: '#partner' }
         # { name: '聯絡我們', tag: '#contact' }
       ]
-
-    dark:
-      default: true
     
   mounted: ->
     @setShrink()
@@ -58,8 +57,9 @@ export default
   methods:
     setShrink: ->
       throttled = throttle 300, =>
-        top = document.scrollingElement.scrollTop ? document.documentElement.scrollTop
-        @isShrink = top > 250
+        prev = @top
+        @top = document.scrollingElement.scrollTop ? document.documentElement.scrollTop
+        @isShrink = @top > 250
       
       window.addEventListener('scroll', throttled)
       @$once 'hook:beforeDestroy', => window.removeEventListener 'scroll', throttled
@@ -71,10 +71,16 @@ export default
       
       document.addEventListener 'click', handler
       @$once('hook:beforeDestroy', => document.removeEventListener('click', handler))
+  
+  computed:
+    isDark: ->
+      !@isShrink
 </script>
 
 <style lang="sass" scoped>
-$shrink-bg-color: #202124
+$shrink-bg-color: rgba(#fff, .97)
+$shrink-border-color: rgba(#ddd, .8)
+
 $time-function: cubic-bezier(0.47,0,.4,.99)
 
 #nav
@@ -87,7 +93,13 @@ $time-function: cubic-bezier(0.47,0,.4,.99)
   z-index: 1000
   top: 4.5rem
   transform: translateY(-100%)
-  letter-spacing: 1px
+  letter-spacing: 2px
+  li.nav-item
+    display: flex
+    align-items: center
+    +px(.5rem)
+    font-size: 14px
+    font-weight: 500
   .container
     position: relative
   .navbar-brand
@@ -106,6 +118,15 @@ $time-function: cubic-bezier(0.47,0,.4,.99)
     top: 0
     .navbar-brand
       visibility: visible
+      .text
+        display: inline-block
+        letter-spacing: 1px
+    &.navbar-light
+      background-color: $shrink-bg-color
+      border-bottom: solid 1px $shrink-border-color
+      .divider
+        border-color: rgba(#333, .3)
+      
   .divider
     height: .8rem
     width: 0
@@ -114,14 +135,15 @@ $time-function: cubic-bezier(0.47,0,.4,.99)
     margin: 0 .75rem
     vertical-align: middle
   img.facebook-icon
-    height: 1rem
+    height: 14px
     width: auto
     opacity: .5
-    vertical-align: middle
+    vertical-align: baseline
     &:hover
       opacity: 1
   a
     cursor: pointer
+    display: inline-block
     
   button.navbar-toggler
     +wh(3rem)
@@ -136,6 +158,11 @@ $time-function: cubic-bezier(0.47,0,.4,.99)
 
 @media (max-width: 767.98px)
   #nav
+    font-size: 1rem
+    &.navbar-dark
+      .navbar-content
+        background-color: rgba(#1e1e1e, .97)
+        border: none
     .divider
       height: 0
       width: 100%
@@ -148,9 +175,11 @@ $time-function: cubic-bezier(0.47,0,.4,.99)
       position: absolute
       top: 3rem
       right: 0
-      background-color: lighten($shrink-bg-color, 3%)
+      background-color: $shrink-bg-color
+      border: solid 1px $shrink-border-color
       padding: .5rem
       overflow: hidden
+        
       ul.navbar-nav
         transition: all .2s $time-function .05s
         padding: .5rem
@@ -164,22 +193,4 @@ $time-function: cubic-bezier(0.47,0,.4,.99)
           transform-origin: top center
     button.navbar-toggler
       +flex-center
-
-//- Popping out text
-#nav
-  .navbar-brand
-    .text
-      display: inline-block
-      letter-spacing: -1rem
-      opacity: 0
-      letter-spacing: -1.3rem
-  &.shrink
-    .navbar-brand
-      .text
-        transition: letter-spacing .7s, opacity 1s
-        transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1)
-        transition-delay: .2s
-        opacity: 1
-        letter-spacing: 1px
-
 </style>
